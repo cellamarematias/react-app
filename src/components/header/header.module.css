@@ -1,0 +1,42 @@
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+}
+
+.user {
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.logout {
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    text-align: start;
+    background: #212529;
+    color: white;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userSection {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    font-size: 3rem;
+    color: white;
+}

@@ -1,0 +1,78 @@
+h4 {
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0;
+}
+
+.addButton {
+    margin: 20px;
+    height: 35px;
+    width: 160px;
+    border: none;
+    border-radius: 2px;
+    background-color: #212529;
+    color: #CEE6F0;
+    text-transform: capitalize;
+}
+
+
+.tasksContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 3rem 3rem 3rem;
+}
+
+.taskCard1 {
+    margin: 0.5rem;
+    height: 440px;
+    width: 220px;
+    background-color: #9CCACC;
+    border: 2px;
+    border-radius: 2px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-table;
+}
+
+.taskCard2 {
+    margin: 0.5rem;
+    height: 440px;
+    width: 220px;
+    background-color: #B8DDDF;
+    border: 2px;
+    border-radius: 2px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-table;
+}
+
+.taskCard3 {
+    margin: 0.5rem;
+    height: 440px;
+    width: 220px;
+    background-color: #CEE6F0;
+    border: 2px;
+    border-radius: 2px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-table;
+}
+
+.taskCard4 {
+    margin: 0.5rem;
+    height: 440px;
+    width: 220px;
+    background-color: #96CDEB;
+    border: 2px;
+    border-radius: 2px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-table;
+}
+
+.taskCard:hover {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}

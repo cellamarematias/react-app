@@ -1,0 +1,34 @@
+h5 {
+    margin: 5px;
+    padding: 10px 5px 5px 5px;
+}
+
+span {
+    padding: 10px 5px 5px 5px;
+    font-style: italic;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 10px;
+}
+
+.card {
+    border-radius: 4px;
+    background-color: #FFFDFD;
+    color: #212529;
+    font-family: 'Roboto', sans-serif;
+}
+
+.carButton {
+    border: none;
+    background-color: #FFFDFD;
+    align-items: flex-end;
+    font-size: large;
+}
+
+/* .card:hover {
+    background-color: #e6dbdb;
+} */
