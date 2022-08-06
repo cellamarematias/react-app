@@ -1,25 +1,44 @@
 h5 {
     margin: 5px;
     padding: 10px 5px 5px 5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-span {
-    padding: 10px 5px 5px 5px;
-    font-style: italic;
+p {
+    margin: 0;
+    padding: 0px 5px 5px 0px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
 }
 
 .cardContent {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    text-align: end;
     padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* resize: horizontal; */
 }
 
 .card {
+    margin: 5px;
+    max-width: 220px;
+    overflow: hidden;
     border-radius: 4px;
     background-color: #FFFDFD;
     color: #212529;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .carButton {
@@ -29,6 +48,7 @@ span {
     font-size: large;
 }
 
-/* .card:hover {
-    background-color: #e6dbdb;
-} */
+.carButton:hover {
+    font-weight: bold;
+    cursor: pointer;
+} 

@@ -1,12 +1,11 @@
 import Home from '../home/Home';
 import Example from '../example/example';
-import Layout from '../layout/layout';
+import Layout from '../layout';
 
 import {
     BrowserRouter,
     Routes,
     Route,
-    Link,
   } from "react-router-dom";
 
   function App() {

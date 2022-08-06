@@ -1,5 +1,5 @@
 h4 {
-    font-family: 'Inter', sans-serif;
+    /* font-family: 'Inter', sans-serif; */
     text-transform: uppercase;
     font-weight: 400;
     margin: 0;
@@ -16,12 +16,17 @@ h4 {
     text-transform: capitalize;
 }
 
+.addButton:hover {
+    cursor: pointer;
+    box-shadow: #212529 0px 0px 0px 2px;
+}
+
 
 .tasksContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0 3rem 3rem 3rem;
 }
 
@@ -31,7 +36,7 @@ h4 {
     width: 220px;
     background-color: #9CCACC;
     border: 2px;
-    border-radius: 2px;
+    /* border-radius: 2px; */
     padding: 10px;
     margin-bottom: 10px;
     display: inline-table;
@@ -43,7 +48,7 @@ h4 {
     width: 220px;
     background-color: #B8DDDF;
     border: 2px;
-    border-radius: 2px;
+    /* border-radius: 2px; */
     padding: 10px;
     margin-bottom: 10px;
     display: inline-table;
@@ -55,7 +60,7 @@ h4 {
     width: 220px;
     background-color: #CEE6F0;
     border: 2px;
-    border-radius: 2px;
+    /* border-radius: 2px; */
     padding: 10px;
     margin-bottom: 10px;
     display: inline-table;
@@ -67,7 +72,7 @@ h4 {
     width: 220px;
     background-color: #96CDEB;
     border: 2px;
-    border-radius: 2px;
+    /* border-radius: 2px; */
     padding: 10px;
     margin-bottom: 10px;
     display: inline-table;
@@ -76,3 +81,83 @@ h4 {
 .taskCard:hover {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    position: relative;
+    /* font-family: 'Inter', sans-serif; */
+    /* border-radius: 5px; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    /* padding: 20px; */
+}
+
+.formFlex {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 15px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem;
+}
+
+.errorP {
+    margin: 0;
+    color: red;
+    font-size: small;
+    font-style: italic;
+}
+
+.title {
+    border: none;
+    font-family: 'Inter', sans-serif;}
+
+.description {
+    border: none;
+    width: 200px;
+    font-family: 'Inter', sans-serif;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    border: none;
+    border-bottom: solid 1px;
+
+}
+
+input {
+    border: none;
+    border-bottom: solid 1px;
+    font-size: large;
+    text-align: start;
+    margin: 5px;
+    padding: 10px 5px 5px 5px;
+    text-transform: uppercase
+}
+
+input[type=date] {
+    border: none;
+    font-weight: lighter;
+    font-family: 'Inter', sans-serif;
+}
+
+select {
+    border: none;
+    text-align: center;
+    font-family: 'Inter', sans-serif;}

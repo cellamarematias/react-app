@@ -1,5 +1,6 @@
 @import '~@csstools/normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Roboto:ital,wght@0,400;0,500;0,700;1,100;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Reenie+Beanie&family=Roboto:ital,wght@0,400;0,500;0,700;1,100;1,400&display=swap');
 
 /* Document
  * ========================================================================== */
@@ -9,6 +10,10 @@
  * 2. Prevent adjustments of font size after orientation changes in
  *    IE on Windows Phone and in iOS.
  */
+
+ body {
+  margin: 0;
+ }
 
  html {
     line-height: 1.15; /* 1 */
