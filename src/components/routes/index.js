@@ -1,6 +1,7 @@
 import Home from '../home/Home';
-import Example from '../example/example';
 import Layout from '../layout';
+import Login from '../auth/Login';
+import Tasks from 'components/tasks';
 
 import {
     BrowserRouter,
@@ -11,11 +12,13 @@ import {
   function App() {
     return (
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />} />
-          <Route path="/" element={<Home />} />
-          <Route path="example/*" element={<Example />} />
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
     );
   }

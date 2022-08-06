@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
 
-import { addTaskThunks, editTaskThunks } from "../../redux/tasks/thunks";
+import { addTaskThunks, editTaskThunks, deleteTaskThunks } from "../../redux/tasks/thunks";
 
 import styles from './tasks.module.css';
 import Cards from '../shared/tasks-cards/index';
@@ -12,25 +12,23 @@ import { ButtonOption } from '../shared/buttonOption';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTasks } from '../../redux/tasks/thunks';
+import { BsTrash, BsFillCheckCircleFill } from "react-icons/bs";
+import {  } from "react-icons/bs";
+
 
 const Task = () => {
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.tasks.tasksList);
     const [isAdding, setIsAdding] = useState(false);
-    const [showModal, setShowModal] = useState(false, {
-        id: '',
-        title: '',
-        description: '',
-        date: '',
-        done: '',
-      });
+    const [showModal, setShowModal] = useState(false);
+    const [isModalDelete, setIsModalDelete] = useState(false, { id: null });
     const [isEditing, setIsEditing] = useState(false, {
         id: '',
         title: '',
         description: '',
         date: '',
         done: '',
-      });
+    });
 
     // Hook form
     const onSubmit = data => console.log(data);
@@ -46,39 +44,44 @@ const Task = () => {
         description: Joi.string().required(),
         done: Joi.string(),
         date: Joi.date().default(() => {
-          return new Date();
+        return new Date();
         })
-      });
+    });
 
-      const {
+    let pend = 0;
+    let prog = 0;
+    let rev = 0;
+    let don = 0;
+
+    const {
         register,
         handleSubmit,
         reset,
         setValue,
         formState: { errors }
-      } = useForm({
+    } = useForm({
         mode: 'onSubmit',
         resolver: joiResolver(schema)
-      });
-    
-      useEffect(() => {
+    });
+
+    useEffect(() => {
         reset();
-      }, []);
+    }, []);
 
     useEffect(() => {
         try {
-          dispatch(getTasks());
+        dispatch(getTasks());
         } catch (error) {
-          console.error(error);
+        console.error(error);
         }
-      }, []);
+    }, []);
 
-      const show = () => {
+    const show = () => {
         setShowModal(true);
         }
 
       // ADD TASK
-      const addTask = (data) => {
+    const addTask = (data) => {
         console.log(data);
         setShowModal(false);
         dispatch(addTaskThunks(data));
@@ -90,10 +93,10 @@ const Task = () => {
         //   message: 'Task created'
         // });
         setShowModal(false);
-      };
+    };
 
 
-      const editTask = (data) => {
+    const editTask = (data) => {
         // format date
         setValue('title', data.title);
         setValue('description', data.description);
@@ -104,28 +107,46 @@ const Task = () => {
         setIsEditing({id: data._id});
     };
 
-        const editedTask =  (data) => {
-            console.log(data);
-            const editedTask = {
-                id: isEditing.id,
-                title: data.title,
-                description: data.description,
-                date: data.date,
-                done: data.done
-            };
-            console.log(editedTask);
-            dispatch(editTaskThunks(editedTask));
-            setShowModal(false);
-            reset();
-        }
+    const editedTask =  (data) => {
+        console.log(data);
+        const editedTask = {
+            id: isEditing.id,
+            title: data.title,
+            description: data.description,
+            date: data.date,
+            done: data.done
+        };
+        console.log(editedTask);
+        dispatch(editTaskThunks(editedTask));
+        setShowModal(false);
+        reset();
+    }
 
-      let pend = 0;
-      let prog = 0;
-      let rev = 0;
-      let don = 0;
+    const deleteItem = () => {
+        let id = isEditing.id;
+        console.log(id);
+        dispatch(deleteTaskThunks(id));
+        setIsModalDelete(!setIsModalDelete);
+        reset();
+    };
 
     return (
         <div>
+                    {/* Modal for deleting task */}
+        <Modal isOpen={isModalDelete} setIsOpen={setIsModalDelete} title={'Delete task'}>
+                <h3>Are you sure?</h3>
+            <div className={styles.ButtonContainer}>
+            <ButtonOption callback={deleteItem} option={'yes'} text={'Confirm'}></ButtonOption>
+            <ButtonOption
+                option={'no'}
+                callback={() => {
+                setIsModalDelete(false);
+                reset();
+                }}
+                text={'Cancel'}
+                ></ButtonOption>
+            </div>
+        </Modal>
             <Modal isOpen={showModal} setIsOpen={setShowModal} title={isAdding ? 'New Task' : 'Edit Task'}>
                 <form  className={styles.form} onSubmit={handleSubmit(isAdding ? addTask : editedTask)}>
                 <div className={styles.formFlex}>
@@ -133,6 +154,10 @@ const Task = () => {
                     </div>
                         <input type="textarea" className={styles.title} name="title" id="title" placeholder="Title" {...register("title")} />
                         {errors.title && <p className={styles.errorP}>This field is required</p>}
+                        <BsTrash className={styles.delete} onClick={() => {
+                            setShowModal(false);
+                            setIsModalDelete(true);
+                        } } />
                     </div>
                     <div className={styles.formFlex}>
                         <div>

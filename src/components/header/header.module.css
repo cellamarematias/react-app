@@ -40,3 +40,8 @@ h1 {
     font-size: 3rem;
     color: white;
 }
+
+span:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
