@@ -1,42 +1,43 @@
 import {
-    getTasksPending,
-    getTasksSuccess,
-    getTasksError,
-    addTaskPending,
-    addTaskSuccess,
-    addTaskError,
-    editTasksPending,
-    editTasksSuccess,
-    editTasksError,
-    deleteTasksPending,
-    deleteTasksSuccess,
-    deleteTasksError
+    getbillsPending,
+    getBillsSuccess,
+    getBillsError,
+    addBillPending,
+    addBillSuccess,
+    addBillError,
+    deleteBillPending,
+    deleteBillSuccess,
+    deleteBillError,
+    editBillPending,
+    editBillSuccess,
+    editBillError
   } from './actions';
   import firebaseApp from 'helper';
   import { getAuth } from "firebase/auth";
 
-  export const getTasks = () => {
+  export const getBills = () => {
     return (dispatch) => {
-      dispatch(getTasksPending());
+      dispatch(getbillsPending());
       // const token = sessionStorage.getItem('token');
-      return fetch(`${process.env.REACT_APP_API_URL}/tasks`)
+      return fetch(`${process.env.REACT_APP_API_URL}/bills`)
         .then((response) => response.json())
         .then((response) => {
-          dispatch(getTasksSuccess(response.data));
+          dispatch(getBillsSuccess(response.data));
           return response.data;
         })
         .catch((error) => {
-          dispatch(getTasksError(error.toString()));
+          dispatch(getBillsError(error.toString()));
         });
     };
   };
 
-  export const addTaskThunks = (data) => {
+  export const addBill = (data, coupleID, userId) => {
+    console.log(data, coupleID);
     const auth = getAuth();
     const user = auth.currentUser;
     // console.log(user.uid);
     const token = sessionStorage.getItem('token');
-    const url = `${process.env.REACT_APP_API_URL}/tasks/`;
+    const url = `${process.env.REACT_APP_API_URL}/bills/`;
     const options = {
       method: 'POST',
       headers: {
@@ -44,31 +45,30 @@ import {
         token
       },
       body: JSON.stringify({
-        title: data.title,
         description: data.description,
+        amount: data.amount,
         date: data.date,
-        done: data.done,
-        uid: user.uid,
+        user: userId,
+        coupleId: coupleID,
       })
     };
     return (dispatch) => {
-      dispatch(addTaskPending());
+      dispatch(addBillPending());
       return fetch(url, options)
         .then((response) => response.json())
         .then((response) => {
-          dispatch(addTaskSuccess(response.data));
+          dispatch(addBillSuccess(response.data));
           return response.data;
         })
         .catch((error) => {
-          dispatch(addTaskError(error));
+          dispatch(addBillError(error));
         });
     };
   };
 
-  export const editTaskThunks = (taskEdited) => {
-    console.log(taskEdited);
+  export const editBill = (editedBill) => {
     const token = sessionStorage.getItem('token');
-    const url = `${process.env.REACT_APP_API_URL}/tasks/${taskEdited.id}`;
+    const url = `${process.env.REACT_APP_API_URL}/bills/${editedBill.id}`;
     const options = {
       method: 'PUT',
       headers: {
@@ -76,41 +76,40 @@ import {
         token
       },
       body: JSON.stringify({
-        title: taskEdited.title,
-        description: taskEdited.description,
-        date: taskEdited.date,
-        done: taskEdited.done,
+        description: editedBill.description,
+        amount: editedBill.amount,
+        date: editedBill.date,
       })
     };
     return (dispatch) => {
-      dispatch(editTasksPending());
+      dispatch(editBillPending());
       return fetch(url, options)
         .then((response) => response.json())
         .then((response) => {
-          dispatch(editTasksSuccess(response.data));
+          dispatch(editBillSuccess(response.data));
           return response.data;
         })
         .catch((error) => {
-          dispatch(editTasksError(error));
+          dispatch(editBillError(error));
         });
     };
   };
 
-  export const deleteTaskThunks = (id) => {
+  export const deleteBill = (id) => {
     const token = sessionStorage.getItem('token');
     return (dispatch) => {
-      dispatch(deleteTasksPending());
-      return fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
+      dispatch(deleteBillPending());
+      return fetch(`${process.env.REACT_APP_API_URL}/bills/${id}`, {
         method: 'DELETE',
         headers: { token }
       })
         .then((response) => response.json())
         .then((response) => {
-          dispatch(deleteTasksSuccess(response.data));
+          dispatch(deleteBillSuccess(response.data));
           return response.data;
         })
         .catch((error) => {
-          dispatch(deleteTasksError(error.toString()));
+          dispatch(deleteBillError(error.toString()));
         });
     };
   };

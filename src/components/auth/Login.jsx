@@ -1,6 +1,7 @@
 import React from "react";
 import styles from './login.module.css';
 import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+// eslint-disable-next-line no-unused-vars
 import firebaseApp from "helper";
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
@@ -8,6 +9,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 import { useDispatch } from 'react-redux';
 import { setAuth } from "redux/auth/thunks";
+import { getUser, createUser } from "redux/auth/thunks";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -30,19 +32,34 @@ const Login = () => {
 
 
     const loginWithEmail = (data) => {
+        const auth = getAuth();
         let email = data.email;
         let password = data.password;
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
+            const displayName = user.displayName;
+            const email = user.email;
+            const token = user.refreshToken;
+            const uid = user.uid;
+            sessionStorage.setItem('token', token);
+            sessionStorage.setItem('displayName', displayName);
+            sessionStorage.setItem('email', email);
+            sessionStorage.setItem('uid', user.uid);
+            // console.log(token);
+            dispatch(setAuth(displayName, email, token, uid));
+            navigate('/tasks');
             // ...
         })
         .catch((error) => {
             const errorCode = error.code;
-            const errorMessage = error.message;
-            alert('Wrong email or password');
-
+            if(errorCode === 'auth/wrong-password') {
+                alert('Wrong email or password');
+            }
+            if (errorCode === 'auth/user-not-found') {
+                alert('User not found');
+            }
         });
     }
 
@@ -56,12 +73,23 @@ const Login = () => {
             const user = result.user;
             const displayName = user.displayName;
             const email = user.email;
-            console.log(email);
-          // ...
-            dispatch(setAuth(displayName, email));
+            const uid = user.uid;
+
+            sessionStorage.setItem('token', token);
+            sessionStorage.setItem('displayName', displayName);
+            sessionStorage.setItem('email', email);
+            sessionStorage.setItem('uid', user.uid);
+            dispatch(setAuth(displayName, email, token, uid));
+            navigate('/tasks');
         })
         .then(() => {
-            navigate('/');
+          const uid = auth.currentUser.uid;
+          const email = auth.currentUser.email;
+          const displayName = auth.currentUser.displayName;
+          dispatch(getUser(uid, displayName, email));
+        })
+        .then(() => {
+            navigate('/tasks');
         })
         .catch((error) => {
           // Handle Errors here.

@@ -14,9 +14,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTasks } from '../../redux/tasks/thunks';
 import { BsTrash, BsFillCheckCircleFill } from "react-icons/bs";
 import {  } from "react-icons/bs";
+import firebaseApp from "helper";
+import { getAuth } from "firebase/auth";
 
 
 const Task = () => {
+    const user = useSelector((state) => state.userLogged);
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.tasks.tasksList);
     const [isAdding, setIsAdding] = useState(false);
@@ -29,6 +32,16 @@ const Task = () => {
         date: '',
         done: '',
     });
+    let filteredList = [];
+
+    const filterData = () => {
+        filteredList = tasks.filter((item) => {
+        return item.uid === user.user.uid;
+        });
+        return filteredList;
+    };
+
+    filterData();
 
     // Hook form
     const onSubmit = data => console.log(data);
@@ -41,7 +54,7 @@ const Task = () => {
 
     const schema = Joi.object({
         title: Joi.string().required().min(3).trim(),
-        description: Joi.string().required(),
+        description: Joi.string().required().min(3).trim(),
         done: Joi.string(),
         date: Joi.date().default(() => {
         return new Date();
@@ -204,7 +217,7 @@ const Task = () => {
                     <div className={styles.taskCard1}>
                         <h4>pending</h4>
                         {/* <Cards onClick={console.log('kakak')}></Cards> */}
-                        {tasks.map((task, index) => {
+                        {filteredList.map((task, index) => {
                             if (task.done === 'pending') {
                                 pend++;
                                 return (
@@ -221,7 +234,7 @@ const Task = () => {
                 <div className={styles.column}>
                     <div className={styles.taskCard2}>
                         <h4>in progress</h4>
-                        {tasks.map((task, index) => {
+                        {filteredList.map((task, index) => {
                             if (task.done === 'inProgress') {
                                 prog++;
                                 return (
@@ -238,7 +251,7 @@ const Task = () => {
                 <div className={styles.column}>
                     <div className={styles.taskCard3}>
                         <h4>in review</h4>
-                        {tasks.map((task, index) => {
+                        {filteredList.map((task, index) => {
                             if (task.done === 'inReview') {
                                 rev++;
                                 return (
@@ -255,7 +268,7 @@ const Task = () => {
                 <div className={styles.column}>
                     <div className={styles.taskCard4}>
                         <h4>done</h4>
-                        {tasks.map((task, index) => {
+                        {filteredList.map((task, index) => {
                             if (task.done === 'done') {
                                 don++;
                                 return (

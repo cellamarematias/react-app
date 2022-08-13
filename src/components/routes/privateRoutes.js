@@ -1,14 +1,13 @@
-import Task from 'components/tasks';
+import Home from 'components/home/Home';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Route, Navigate  } from 'react-router-dom';
+import { useNavigate   } from 'react-router-dom';
 
-const PrivateRoute = ({ component: RouteComponent, ...props }) => {
-    // const authenticated = useSelector((state) => state.userLogged.user.authenticated);
-
-    // return (
-    //     authenticated ? Task : ( <Navigate to="/login" /> )
-    // );
-};
+function PrivateRoute({ children }) {
+    const user = useSelector((state) => state.userLogged);
+    const authenticated = user.user.authenticated;
+    let navigate = useNavigate();
+    return authenticated ? children : <Home/>;
+  }
 
 export default PrivateRoute;

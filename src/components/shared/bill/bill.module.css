@@ -1,0 +1,23 @@
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.listItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: .5rem;
+    width: 90vw;
+    height: 35px;
+    border-radius: 3px;
+    background-color: #ffa43a;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: .8rem;
+    font-weight: bold;
+}

@@ -5,7 +5,9 @@ import {
     LOGIN_PENDING,
     LOGIN_SUCCESS,
     LOGIN_ERROR,
-    SET_AUTHENTICATION
+    SET_AUTHENTICATION,
+    GET_USER_SUCCESS,
+    GET_USER_ERROR
   } from 'redux/auth/constants';
 
   export const registerPending = () => {
@@ -37,4 +39,14 @@ import {
   export const setAuthentication = (data) => ({
     type: SET_AUTHENTICATION,
     payload: data
+  });
+
+  export const getUserSuccess = (data) => ({
+    type: GET_USER_SUCCESS,
+    payload: data
+  });
+
+  export const getUserError = (error) => ({
+    type: GET_USER_ERROR,
+    payload: error
   });

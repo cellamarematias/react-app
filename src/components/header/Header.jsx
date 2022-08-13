@@ -8,22 +8,28 @@ import { setAuth } from "redux/auth/thunks";
 
 const Header = () => {
   const user = useSelector((state) => state.userLogged);
-  console.log(user.user);
   let navigate = useNavigate();
   const auth = getAuth();
   const dispatch = useDispatch();
 
   const logout = () => {
     signOut(auth).then(() => {
+      console.log("Signed out");
+      navigate("/login");
       // Sign-out successful.
       // sessionStorage.removeItem("token");
       // sessionStorage.removeItem("displayName");
-      dispatch(setAuth(null, null));
-      navigate("/login");
+      dispatch(setAuth(null, null, null, null));
+      sessionStorage.clear();
     }).catch((error) => {
       // An error happened.
-      console.log("signed out");
+      console.log(error);
     });
+  }
+
+  const redirectLogin = () => {
+    console.log("Redirect to login");
+    navigate("/login");
   }
 
 
@@ -63,7 +69,7 @@ onAuthStateChanged(auth, (user) => {
             <BsFillPersonFill className={styles.icon} />
             <div className={styles.flex}>
                 <span className={styles.user}>{user.user.displayName ? user.user.displayName : 'Anonnymous'}</span>
-                <span className={styles.logout} onClick={user.user.authenticated ? '' : logout}>{user.user.authenticated ? 'Logout' : 'Login'}</span>
+                <button className={styles.logout} onClick={user.user.email ? logout : redirectLogin }>{user.user.email ? 'Logout' : 'Login' }</button>
             </div>
         </div>
         </div>

@@ -1,7 +1,12 @@
 import Home from '../home/Home';
 import Layout from '../layout';
 import Login from '../auth/Login';
-import Tasks from 'components/tasks';
+import PrivateRoute from './privateRoutes';
+import Signup from 'components/auth/sigunp';
+import Task from 'components/tasks';
+import Bills from 'components/bills';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import {
     BrowserRouter,
@@ -9,14 +14,24 @@ import {
     Route,
   } from "react-router-dom";
 
+
   function App() {
+    const user = useSelector((state) => state.userLogged);
+    //console.log(user.user.authenticated);
     return (
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path="/tasks" element={<Tasks />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+          <Route path="/tasks"
+            element={
+              <PrivateRoute>
+                <Task />
+              </PrivateRoute>
+            }/>
+          <Route path="/" element={<Home />} />
+          <Route path="/bills" element={<Bills />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           </Routes>
         </Layout>
       </BrowserRouter>

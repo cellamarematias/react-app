@@ -5,16 +5,22 @@ import {
     LOGIN_PENDING,
     LOGIN_SUCCESS,
     LOGIN_ERROR,
-    SET_AUTHENTICATION
+    SET_AUTHENTICATION,
+    GET_USER_SUCCESS,
+    GET_USER_ERROR
   } from 'redux/auth/constants';
 
   // this state is being used in the header component
+  const authenticatedState = sessionStorage.getItem('token') ? true : false;
   const initialState = {
     isLoading: false,
     user: {
-      displayName: '',
-      email: '',
-      authenticated: false
+      displayName: sessionStorage.getItem('displayName'),
+      email: sessionStorage.getItem('email'),
+      authenticated: authenticatedState,
+      token: sessionStorage.getItem('token'),
+      uid: sessionStorage.getItem('uid'),
+      couples: [sessionStorage.getItem('couples')]
     },
     error: ''
   };
@@ -62,6 +68,20 @@ import {
         return {
           ...state,
           user: action.payload,
+          isFetching: false
+        };
+      }
+      case GET_USER_SUCCESS: {
+        return {
+          ...state,
+          user: action.payload,
+          isFetching: false
+        };
+      }
+      case GET_USER_ERROR: {
+        return {
+          ...state,
+          error: action.payload,
           isFetching: false
         };
       }
