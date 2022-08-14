@@ -11,12 +11,22 @@ import {
       EDIT_COUPLE_PENDING,
       EDIT_COUPLE_SUCCESS,
       EDIT_COUPLE_ERROR,
-      ADD_EXPENSE_PENDING,
-      ADD_EXPENSE_SUCCESS,
-      ADD_EXPENSE_ERROR
+      USERSEARCHED_SUCCESS,
+      USERSEARCHED_ERROR,
+      GET_COUPLES_ID_PENDING,
+      GET_COUPLES_ID_SUCCESS,
+      GET_COUPLES_ID_ERROR
   } from './constants';
   const initialState = {
-    couplesList: []
+    usersearch: {
+      email: '',
+      fullName: '',
+      _id: '',
+      message: '',
+      error: ''
+    },
+    couplesList: [],
+    coupleSelected: [],
   };
   export const couplesReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -29,6 +39,7 @@ import {
         return {
           ...state,
           couplesList: action.payload,
+          coupleSelected: [action.payload[0]],
           isLoading: false
         };
       case GET_COUPLES_ERROR:
@@ -46,6 +57,7 @@ import {
         return {
           ...state,
           couplesList: [...state.couplesList, action.payload],
+          coupleSelected: [action.payload],
           isLoading: false
         };
       case ADD_COUPLE_ERROR:
@@ -90,26 +102,41 @@ import {
           isLoading: false,
           error: action.payload
         };
-      case ADD_EXPENSE_PENDING:
+      case USERSEARCHED_SUCCESS:
+        return {
+          ...state,
+          usersearch: {
+            email: action.payload.email,
+            fullName: action.payload.fullName,
+            _id: action.payload._id,
+            error: false
+          },
+          isLoading: false,
+        };
+      case USERSEARCHED_ERROR:
+        return {
+          ...state,
+          isLoading: false,
+          usersearch: {
+            email: '',
+            fullName: '',
+            _id: '',
+            message: 'User Not found - User must be registered',
+            error: true
+          },
+        };
+      case GET_COUPLES_ID_PENDING:
         return {
           ...state,
           isLoading: true
         };
-      case ADD_EXPENSE_SUCCESS:
+      case GET_COUPLES_ID_SUCCESS:
         return {
           ...state,
-          couplesList: state.couplesList.map((couple) => {
-            if (couple._id === action.payload.coupleId) {
-              return {
-                ...couple,
-                expenses: [...couple.expenses, action.payload]
-              };
-            }
-            return couple;
-          }),
+          coupleSelected: action.payload,
           isLoading: false
         };
-      case ADD_EXPENSE_ERROR:
+      case GET_COUPLES_ID_ERROR:
         return {
           ...state,
           isLoading: false,

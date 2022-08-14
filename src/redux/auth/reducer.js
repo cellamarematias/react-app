@@ -7,7 +7,10 @@ import {
     LOGIN_ERROR,
     SET_AUTHENTICATION,
     GET_USER_SUCCESS,
-    GET_USER_ERROR
+    GET_USER_ERROR,
+    EDIT_USER_PENDING,
+    EDIT_USER_SUCCESS,
+    EDIT_USER_ERROR,
   } from 'redux/auth/constants';
 
   // this state is being used in the header component
@@ -20,7 +23,8 @@ import {
       authenticated: authenticatedState,
       token: sessionStorage.getItem('token'),
       uid: sessionStorage.getItem('uid'),
-      couples: [sessionStorage.getItem('couples')]
+      couples: [sessionStorage.getItem('couples')],
+      defaulCouple: sessionStorage.getItem('defaulCouple'),
     },
     error: ''
   };
@@ -83,6 +87,27 @@ import {
           ...state,
           error: action.payload,
           isFetching: false
+        };
+      }
+      case EDIT_USER_PENDING: {
+        return {
+          ...state,
+          isLoading: true,
+          error: initialState.error
+        };
+      }
+      case EDIT_USER_SUCCESS: {
+        return {
+          ...state,
+          isLoading: false,
+          error: action.payload
+        };
+      }
+      case EDIT_USER_ERROR: {
+        return {
+          ...state,
+          isLoading: false,
+          error: action.payload
         };
       }
       default:

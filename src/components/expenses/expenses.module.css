@@ -1,10 +1,27 @@
 .billsContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.addCoupleButton {
+    margin-left: 7px;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    border: none;
+    background-color: #ffbf75;
+    color: #525558;
+    font-size: 12px;
+    cursor: pointer;
 }
 
 .user1 {
@@ -76,7 +93,7 @@
 }
 
 .billInput {
-    widt: 80%;
+    width: 80%;
 }
 
 

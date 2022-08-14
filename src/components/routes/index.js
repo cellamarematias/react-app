@@ -4,7 +4,7 @@ import Login from '../auth/Login';
 import PrivateRoute from './privateRoutes';
 import Signup from 'components/auth/sigunp';
 import Task from 'components/tasks';
-import Bills from 'components/bills';
+import Expenses from 'components/expenses';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ import {
               </PrivateRoute>
             }/>
           <Route path="/" element={<Home />} />
-          <Route path="/bills" element={<Bills />} />
+          <Route path="/Expenses" element={<Expenses />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           </Routes>

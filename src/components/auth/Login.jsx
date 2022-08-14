@@ -83,10 +83,10 @@ const Login = () => {
             navigate('/tasks');
         })
         .then(() => {
-          const uid = auth.currentUser.uid;
-          const email = auth.currentUser.email;
-          const displayName = auth.currentUser.displayName;
-          dispatch(getUser(uid, displayName, email));
+            const uid = auth.currentUser.uid;
+            const email = auth.currentUser.email;
+            const displayName = auth.currentUser.displayName;
+            dispatch(getUser(uid, displayName, email));
         })
         .then(() => {
             navigate('/tasks');
@@ -115,7 +115,7 @@ return (
     </form>
     <button type="submit" className={styles.loginButton} onClick={loginWithGoogle}>Google</button>
 
-    <h5>Signup</h5>
+    <h5 onClick={() => navigate('/signup')} >Not a member? Register</h5>
     </div>
 );
 }

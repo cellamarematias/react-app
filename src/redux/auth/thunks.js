@@ -3,6 +3,9 @@ import {
     registerError,
     registerSuccess,
     registerPending,
+    editUserPending,
+    editUserSuccess,
+    editUserError,
   } from './actions';
   // eslint-disable-next-line no-unused-vars
   import firebaseApp from 'helper';

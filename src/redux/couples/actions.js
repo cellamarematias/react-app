@@ -11,9 +11,11 @@ import {
     EDIT_COUPLE_PENDING,
     EDIT_COUPLE_SUCCESS,
     EDIT_COUPLE_ERROR,
-    ADD_EXPENSE_PENDING,
-    ADD_EXPENSE_SUCCESS,
-    ADD_EXPENSE_ERROR
+    USERSEARCHED_SUCCESS,
+    USERSEARCHED_ERROR,
+    GET_COUPLES_ID_PENDING,
+    GET_COUPLES_ID_SUCCESS,
+    GET_COUPLES_ID_ERROR
   } from './constants';
 
   export const getCouplesPending = () => {
@@ -78,16 +80,29 @@ import {
     payload: error
   });
 
-  export const addExpensePending = () => ({
-    type: ADD_EXPENSE_PENDING
-  });
-
-  export const addExpenseSuccess = (COUPLES) => ({
-    type: ADD_EXPENSE_SUCCESS,
+  export const userSearchedSuccess = (COUPLES) => ({
+    type: USERSEARCHED_SUCCESS,
     payload: COUPLES
   });
 
-  export const addExpenseError = (error) => ({
-    type: ADD_EXPENSE_ERROR,
+  export const userSearchedError = (error) => ({
+    type: USERSEARCHED_ERROR,
     payload: error
   });
+
+  export const getCouplesIdPending = () => ({
+    type: GET_COUPLES_ID_PENDING
+  });
+
+  export const getCouplesIdSuccess = (COUPLES) => ({
+    type: GET_COUPLES_ID_SUCCESS,
+    payload: COUPLES
+  });
+
+  export const getCouplesIdError = (error) => ({
+    type: GET_COUPLES_ID_ERROR,
+    payload: error
+  });
+
+
+

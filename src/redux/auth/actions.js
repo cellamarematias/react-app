@@ -7,7 +7,10 @@ import {
     LOGIN_ERROR,
     SET_AUTHENTICATION,
     GET_USER_SUCCESS,
-    GET_USER_ERROR
+    GET_USER_ERROR,
+    EDIT_USER_PENDING,
+    EDIT_USER_SUCCESS,
+    EDIT_USER_ERROR,
   } from 'redux/auth/constants';
 
   export const registerPending = () => {
@@ -50,3 +53,19 @@ import {
     type: GET_USER_ERROR,
     payload: error
   });
+
+  export const editUserPending = () => {
+    return {
+      type: EDIT_USER_PENDING
+    };
+  }
+
+  export const editUserSuccess = (data) => ({
+    type: EDIT_USER_SUCCESS,
+    payload: data
+  })
+
+  export const editUserError = (error) => ({
+    type: EDIT_USER_ERROR,
+    payload: error
+  })

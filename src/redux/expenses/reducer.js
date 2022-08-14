@@ -1,93 +1,94 @@
 import {
-    GET_BILLS_PENDING,
-    GET_BILLS_SUCCESS,
-    GET_BILLS_ERROR,
-    ADD_BILL_PENDING,
-    ADD_BILL_SUCCESS,
-    ADD_BILL_ERROR,
-    DELETE_BILL_PENDING,
-    DELETE_BILL_SUCCESS,
-    DELETE_BILL_ERROR,
-    EDIT_BILL_PENDING,
-    EDIT_BILL_SUCCESS,
-    EDIT_BILL_ERROR
+  ADD_EXPENSE_PENDING,
+  ADD_EXPENSE_SUCCESS,
+  ADD_EXPENSE_ERROR,
+  DELETE_EXPENSE_PENDING,
+  DELETE_EXPENSE_SUCCESS,
+  DELETE_EXPENSE_ERROR,
+  EDIT_EXPENSE_PENDING,
+  EDIT_EXPENSE_SUCCESS,
+  EDIT_EXPENSE_ERROR,
+  GET_EXPENSES_PENDING,
+  GET_EXPENSES_SUCCESS,
+  GET_EXPENSES_ERROR,
   } from './constants';
+
   const initialState = {
-    billsList: []
+    expensesList: []
   };
-  export const billsReducer = (state = initialState, action) => {
+  export const ExpensessReducer = (state = initialState, action) => {
     switch (action.type) {
-      case GET_BILLS_PENDING:
+      case GET_EXPENSES_PENDING:
         return {
           ...state,
           isLoading: true
         };
-      case GET_BILLS_SUCCESS:
+      case GET_EXPENSES_SUCCESS:
         return {
           ...state,
-          billsList: action.payload,
+          expensesList: action.payload,
           isLoading: false
         };
-      case GET_BILLS_ERROR:
+      case GET_EXPENSES_ERROR:
         return {
           ...state,
           error: action.payload,
           isLoading: false
         };
-      case ADD_BILL_PENDING:
+      case ADD_EXPENSE_PENDING:
         return {
           ...state,
           isLoading: true
         };
-      case ADD_BILL_SUCCESS:
+      case ADD_EXPENSE_SUCCESS:
         return {
           ...state,
-          billsList: [...state.billsList, action.payload],
+          expensesList: [...state.expensesList, action.payload],
           isLoading: false
         };
-      case ADD_BILL_ERROR:
+      case ADD_EXPENSE_ERROR:
         return {
           ...state,
           isLoading: false,
           error: action.payload
         };
-      case DELETE_BILL_PENDING:
+      case DELETE_EXPENSE_PENDING:
         return {
           ...state,
           isLoading: true
         };
-      case DELETE_BILL_SUCCESS:
+      case DELETE_EXPENSE_SUCCESS:
         return {
           ...state,
-          billsList: state.billsList.filter((BILL) => BILL._id !== action.payload._id),
+          expensesList: state.expensesList.filter((expense) => expense._id !== action.payload._id),
           isLoading: false
         };
-      case DELETE_BILL_ERROR:
+      case DELETE_EXPENSE_ERROR:
         return {
           ...state,
           isLoading: false,
           error: action.payload
         };
-      case EDIT_BILL_PENDING:
+      case EDIT_EXPENSE_PENDING:
         return {
           ...state,
           isLoading: true
         };
-      case EDIT_BILL_SUCCESS:
+      case EDIT_EXPENSE_SUCCESS:
         return {
           ...state,
-          billsList: state.billsList.map((BILL) =>
-            BILL._id === action.payload._id ? action.payload : BILL
+          expensesList: state.expensesList.map((expense) =>
+            expense._id === action.payload._id ? action.payload : expense
           ),
           isLoading: false
         };
-      case EDIT_BILL_ERROR:
+      case EDIT_EXPENSE_ERROR:
         return {
           ...state,
           isLoading: false,
           error: action.payload
         };
-  
+
       default:
         return state;
     }
