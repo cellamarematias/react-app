@@ -28,8 +28,13 @@ import {
                 <Task />
               </PrivateRoute>
             }/>
+            <Route path="/expenses"
+            element={
+              <PrivateRoute>
+                <Expenses />
+              </PrivateRoute>
+            }/>
           <Route path="/" element={<Home />} />
-          <Route path="/Expenses" element={<Expenses />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           </Routes>
