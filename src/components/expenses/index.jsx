@@ -22,10 +22,11 @@ import { addExpenses } from "redux/expenses/thunks";
 const Expenses = () => {
     const dispatch = useDispatch();
     const couples = useSelector(state => state.couples);
-    console.log('pareja elegida', couples.coupleSelected);
     const user = useSelector((state) => state.userLogged);
     const userSearch = useSelector((state) => state.couples.usersearch);
     const expenses = useSelector((state) => state.expenses);
+    console.log(expenses);
+    console.log(couples.coupleSelected);
     const today = new Date();
     const date = today.setDate(today.getDate());
     const defaultValue = new Date(date).toISOString().split('T')[0] // yyyy-mm-dd
@@ -112,6 +113,39 @@ const Expenses = () => {
         amount: '',
         date: '',
     });
+    let total = 0;
+    let totalUserOne = 0;
+    let totalUserTwo = 0;
+    let difference = 0;
+    let userTop = '';
+    let userBottom = '';
+
+    const calulator = () => {
+        expenses.expensesList.map((item) => {
+            total += item.amount;
+            if (item.userId._id === couples.coupleSelected[0]?.userOne._id) {
+                totalUserOne += item.amount;
+            } else {
+                totalUserTwo += item.amount;
+            }
+        } );
+        let divide = total / 2;
+        if (totalUserOne > totalUserTwo) {
+            // console.log('user one is greater than user two');
+            difference = divide - totalUserTwo;
+            userTop = couples.coupleSelected[0]?.userTwo.fullName;
+            userBottom = couples.coupleSelected[0]?.userOne.fullName;
+        } else {
+            // console.log('user two is greater than user one');
+            difference = divide - totalUserOne;
+            userTop = couples.coupleSelected[0]?.userOne.fullName;
+            userBottom = couples.coupleSelected[0]?.userTwo.fullName;
+        }
+        return totalUserOne;
+    }
+
+    calulator();
+    console.log('user top', userTop);
 
     const searchUser = (e) => {
         const value = document.getElementById("email").value;
@@ -235,7 +269,7 @@ const Expenses = () => {
                     <div className={styles.formGroup}>
                         <div className={styles.title}>
                             <label htmlFor="user"></label>
-                            <select name="user" id="user" {...register("user")}>
+                            <select className={styles.select} name="user" id="user" {...register("user")}>
                                 <option value="">Select a user</option>
                                 <option value={ typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne._id : 'No data' }>
                                     { typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne.fullName : 'No data' } </option>
@@ -262,25 +296,26 @@ const Expenses = () => {
             <Modal isOpen={isAddingCouple} setIsOpen={setIsAddingCouple} title={'New Couple'}>
                 <form  className={styles.form} onSubmit={handleSubmit2(addCouple)}>
                     <div className={styles.formFlex}>
-                        <div>
-                            <input type="text" className={styles.billInput} name="coupleName" id="coupleName" placeholder="coupleName" {...register2("coupleName")} />
+                        <div className={styles.flex}>
+                            <input type="text" className={styles.billInput} name="coupleName" id="coupleName" placeholder="Name" {...register2("coupleName")} />
                             {errors2.coupleName && <p className={styles.errorP}>This field is required</p>}
                         </div>
-                        <div>
-                            <label htmlFor="email">Look for second user email</label>
-                            <input type="email" className={styles.billInput} name="email" id="email" {...register2("email")} />
+                        <div className={styles.flex}>
+                            <input type="email" className={styles.billInput} name="email" id="email" placeholder="Second user email" {...register2("email")} />
                             {errors2.email && <p className={styles.errorP}>This field is required</p>}
-                            <BsSearch className={styles.delete} onClick={() => {
+                        </div>
+                        <div className={styles.flex}>
+                        <BsSearch className={styles.delete} onClick={() => {
                                 searchUser(false);
                             } } />
-                            <p>{userSearch.fullName? userSearch.fullName : userSearch.message } - { userSearch.email }</p>
                         </div>
+                        <p className={styles.search}>{userSearch.fullName? userSearch.fullName : userSearch.message }</p>
                         <div className={styles.modalbuttons}>
                             { userSearch.error ? '' : <ButtonOption option={'yes'} text={'Confirm'} ></ButtonOption>}
                             <ButtonOption
                                 option={'no'}
                                 callback={() => {
-                                    setShowModal(false);
+                                    setIsAddingCouple(false);
                                     reset();
                                 } }
                                 text={'Cancel'}
@@ -290,12 +325,12 @@ const Expenses = () => {
                 </form>
             </Modal>
             {/* select dashboard modal */}
-            <Modal isOpen={isSelectingDashboard} setIsOpen={setIsSelectingDashboard} title={'Dashboards list'}>
+            <Modal isOpen={isSelectingDashboard} setIsOpen={setIsSelectingDashboard} title={'My list'}>
                 <form  className={styles.form} onSubmit={handleSubmit3(selectDashboard)}>
-                <button className={styles.addCoupleButton} onClick={() => { setIsAddingCouple(true); setIsSelectingDashboard(false);}} >+</button>
+                <button className={styles.addCoupleButton} onClick={() => { setIsAddingCouple(true); setIsSelectingDashboard(false);}} >Add</button>
                     <div className={styles.formFlex}>
                         <div>
-                            <label htmlFor="dashboard">Select dashboard</label>
+                            <label htmlFor="dashboard">Select dashboard:</label>
                             <select name="dashboard" id="dashboard" {...register3("dashboard")}>
                                 {couples.couplesList.map((dashboard) => {
                                     if (dashboard.userOne._id === user.user.uid || dashboard.userTwo._id === user.user.uid) {
@@ -307,8 +342,6 @@ const Expenses = () => {
                             </select>
                             {errors3.dashboard && <p className={styles.errorP}>This field is required</p>}
                         </div>
-                        <input type="checkbox" className={styles.billInput} name="isDefault" id="isDefault" {...register3("isDefault")} />
-                        <label htmlFor="isDefault">Default</label>
                         <div className={styles.modalbuttons}>
                             <ButtonOption option={'yes'} text={'Confirm'}></ButtonOption>
                             <ButtonOption
@@ -326,19 +359,19 @@ const Expenses = () => {
 
             <div className={styles.billsContainer}>
                 <div className={styles.flex}>
-                    <h1 className={styles.title} onClick={() => setIsSelectingDashboard(true)}>Select Dashboard</h1>
+                    <h1 className={styles.title} onClick={() => setIsSelectingDashboard(true)}>Dashboard:</h1>
                     <h5>{couples.coupleSelected[0]?.name ? couples.coupleSelected[0].name : ""}</h5>
                 </div>
                 <div className={styles.user1}>
-                    <h4>User 1</h4>
+                    <h4>{userTop}</h4>
                 </div>
                 <div className={styles.circle}>
                     <h4>owes</h4>
-                    <h3>{couples.coupleSelected[0]?.balance ? couples.coupleSelected[0].balance : 0}</h3>
+                    <h3>${difference}</h3>
                     <h4>to</h4>
                 </div>
                 <div className={styles.user2}>
-                    <h4>User 2</h4>
+                    <h4>{userBottom}</h4>
                 </div>
                 <div >
                     <button className={styles.addButton} onClick={() => {

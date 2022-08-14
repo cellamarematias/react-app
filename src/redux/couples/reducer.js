@@ -121,7 +121,7 @@ import {
             email: '',
             fullName: '',
             _id: '',
-            message: 'User Not found - User must be registered',
+            message: 'Not found. User must be registered',
             error: true
           },
         };

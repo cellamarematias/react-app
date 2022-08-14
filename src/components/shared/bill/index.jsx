@@ -1,5 +1,5 @@
 import styles from "./bill.module.css";
-import { BsTrash } from "react-icons/bs";
+import { BsFillPencilFill } from "react-icons/bs";
 
 const BillsListItem = ( {data, i, func}) => {
     return (
@@ -8,8 +8,8 @@ const BillsListItem = ( {data, i, func}) => {
                 {data ? ([data].map((item) => {
                     return (
                         <div key={item._id} className={styles.listItem}>
-                            {item.userId.fullName} - {new Date(item.date).toISOString().substr(0, 10) } - ${item.amount} - {item.name}
-                            <BsTrash onClick={() => func(item)} className={styles.deleteIcon} />
+                            {item.userId.fullName} | {new Date(item.date).toISOString().substr(0, 10) } | ${item.amount} | {item.name} |
+                            <BsFillPencilFill onClick={() => func(item)} className={styles.deleteIcon} />
                         </div>
                     )
 
