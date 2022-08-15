@@ -5,6 +5,7 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth } from "redux/auth/thunks";
+import { useEffect } from 'react';
 
 const Header = () => {
   const user = useSelector((state) => state.userLogged);
@@ -31,7 +32,6 @@ const Header = () => {
     console.log("Redirect to login");
     navigate("/login");
   }
-
 
 onAuthStateChanged(auth, (user) => {
   if (user) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './login.module.css';
 import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, getRedirectResult } from "firebase/auth";
 // eslint-disable-next-line no-unused-vars
@@ -7,11 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from "redux/auth/thunks";
 import { getUser, createUser } from "redux/auth/thunks";
 
 const Login = () => {
+    const user = useSelector((state) => state.userLogged);
     const dispatch = useDispatch();
     const schema = Joi.object({
         email: Joi.string().email({ tlds: { allow: false } }),
@@ -30,6 +31,11 @@ const Login = () => {
         resolver: joiResolver(schema)
         });
 
+    useEffect(() => {
+        if (sessionStorage.getItem('email')) {
+            navigate("/expenses");
+        }
+    },[navigate, user]);
 
     const loginWithEmail = (data) => {
         const auth = getAuth();
@@ -72,7 +78,6 @@ const Login = () => {
 
     getRedirectResult(auth)
     .then((result) => {
-        navigate('/expenses');
       // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
@@ -81,7 +86,6 @@ const Login = () => {
         const displayName = user.displayName;
         const email = user.email;
         const uid = user.uid;
-
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('displayName', displayName);
         sessionStorage.setItem('email', email);
@@ -93,9 +97,6 @@ const Login = () => {
         const email = auth.currentUser.email;
         const displayName = auth.currentUser.displayName;
         dispatch(getUser(uid, displayName, email));
-    })
-    .then(() => {
-        navigate('/expenses');
     })
     .catch((error) => {
       // Handle Errors here.

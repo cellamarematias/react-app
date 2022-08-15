@@ -6,7 +6,6 @@ import Signup from 'components/auth/sigunp';
 import Task from 'components/tasks';
 import Expenses from 'components/expenses';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import {
     BrowserRouter,
