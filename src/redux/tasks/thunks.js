@@ -41,7 +41,6 @@ import {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        token
       },
       body: JSON.stringify({
         title: data.title,
@@ -73,7 +72,6 @@ import {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        token
       },
       body: JSON.stringify({
         title: taskEdited.title,

@@ -40,7 +40,6 @@ import {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        token
       },
       body: JSON.stringify({
         coupleId: data.coupleId,
@@ -73,7 +72,6 @@ import {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        token
       },
       body: JSON.stringify({
         coupleId: editedExpense.coupleId,

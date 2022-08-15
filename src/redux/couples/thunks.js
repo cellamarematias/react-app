@@ -50,9 +50,7 @@ import {
     const options = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        token
-      }
+        'Content-Type': 'application/json',      }
     };
     return (dispatch) => {
       return fetch(url, options)
@@ -79,7 +77,6 @@ import {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          token
         },
         body: JSON.stringify({
           "name": couple.name,

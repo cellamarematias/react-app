@@ -24,7 +24,6 @@ import {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        token
       },
       body: JSON.stringify({
         _id: userUid,
@@ -53,7 +52,6 @@ import {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        token
       }
     };
     return (dispatch) => {
