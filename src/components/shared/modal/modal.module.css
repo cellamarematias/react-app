@@ -31,7 +31,7 @@ button {
     justify-content: space-between;
     align-content: center;
     align-items: center;
-    max-width: 600px;
+    max-width: 95%;
     background: #fff;
     position: relative;
     font-family: 'Inter', sans-serif;
@@ -69,4 +69,10 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .contenedorModal {
+        width: 100%;
+    }
 }

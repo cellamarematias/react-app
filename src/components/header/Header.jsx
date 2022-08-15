@@ -53,8 +53,8 @@ onAuthStateChanged(auth, (user) => {
         case '/tasks':
           pathName = 'Tasks';
           break;
-        case '/bills':
-          pathName = 'Bills';
+        case '/expenses':
+          pathName = 'Expenses';
           break;
         default:
           pathName = '';

@@ -20,3 +20,9 @@
     font-family: 'Roboto', sans-serif;
     font-size: .8rem;
 }
+
+.odd {
+    margin: 0;
+    padding: 0;
+    color: red;
+}

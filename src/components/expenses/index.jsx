@@ -119,6 +119,7 @@ const Expenses = () => {
     let difference = 0;
     let userTop = '';
     let userBottom = '';
+    let userTopId = '';
 
     const calulator = () => {
         expenses.expensesList.map((item) => {
@@ -134,11 +135,13 @@ const Expenses = () => {
             // console.log('user one is greater than user two');
             difference = divide - totalUserTwo;
             userTop = couples.coupleSelected[0]?.userTwo.fullName;
+            userTopId = couples.coupleSelected[0]?.userTwo._id;
             userBottom = couples.coupleSelected[0]?.userOne.fullName;
         } else {
             // console.log('user two is greater than user one');
             difference = divide - totalUserOne;
             userTop = couples.coupleSelected[0]?.userOne.fullName;
+            userTopId = couples.coupleSelected[0]?.userOne._id;
             userBottom = couples.coupleSelected[0]?.userTwo.fullName;
         }
         return totalUserOne;
@@ -146,6 +149,11 @@ const Expenses = () => {
 
     calulator();
     console.log('user top', userTop);
+    const setBalance = () => {
+        setValue('amount', (difference * 2), {shouldValidate: true});
+        setValue('description', 'Balance to $0.00');
+        setValue('user', userTopId, {shouldValidate: true});
+    }
 
     const searchUser = (e) => {
         const value = document.getElementById("email").value;
@@ -188,6 +196,7 @@ const Expenses = () => {
         } catch (error) {
             console.error(error);
         }
+        reset();
     }
 
     const editExpense = (data) => {
@@ -244,53 +253,57 @@ const Expenses = () => {
         <div>
             <Modal isOpen={showModal} setIsOpen={setShowModal} title={isAdding ? 'New Bill' : 'Edit Bill'}>
                 <form  className={styles.form} onSubmit={handleSubmit(isAdding ? addBillForm : edit)}>
-                <div className={styles.formFlex}>
-                    <div>
-                    </div>
-                        <input type="number" className={styles.billInput} name="amount" id="amount" placeholder="$" {...register("amount")} />
-                        {errors.amount && <p className={styles.errorP}>This field is required</p>}
-                        <BsTrash className={styles.delete} onClick={() => {
-                            setShowModal(false);
-                            deleteExpense();
-                            setIsModalDelete(true);
-                        } } />
-                    </div>
                     <div className={styles.formFlex}>
-                        <div>
+                        <div className={styles.flex}>
+                            <input type="number" step="any" className={styles.billInput} name="amount" id="amount" placeholder="$" {...register("amount")} />
+                            {errors.amount && <p className={styles.errorP}>This field is required</p>}
+                            {isAdding ? <><span>Balance to $0</span><input type="checkbox" onChange={setBalance} /></> : ''}
                         </div>
-                        <textarea className={styles.billInput} name="description" id="description" placeholder="Description" {...register("description")}/>
-                        {errors.description && <p className={styles.errorP}>This field is required</p>}
-                    </div>
-                    <div className={styles.formFlex}>
-                        <div className={styles.title}>
-                            <input type="date" name="date" id="date" {...register("date")} defaultValue={defaultValue}/>
+                        <div className={styles.flex}>
+                            <div>
+                            </div>
+                            <textarea className={styles.textAreaExpenses} name="description" id="description" placeholder="Description" {...register("description")}/>
+                            {errors.description && <p className={styles.errorP}>This field is required</p>}
+                        </div>
+                        <div className={styles.flex}>
+                            <div className={styles.title}>
+                                <input type="date" name="date" id="date" {...register("date")} defaultValue={defaultValue}/>
+                            </div>
+                        </div>
+                        <div className={styles.flex}>
+                            <div className={styles.selectIcon}>
+                                <div className={styles.title}>
+                                    <select className={styles.select} name="user" id="user" {...register("user")}>
+                                        <option value="">Select a user</option>
+                                        <option value={ typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne._id : 'No data' }>
+                                            { typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne.fullName : 'No data' } </option>
+                                        <option value={ typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo._id : 'No data' }>
+                                            { typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo.fullName : 'No data' } </option>
+                                    </select>
+                                    {errors.user && <p className={styles.errorP}>This field is required</p>}
+                                    {isAdding ? '' :
+                                        <BsTrash className={styles.delete} onClick={() => {
+                                        setShowModal(false);
+                                        deleteExpense();
+                                        setIsModalDelete(true);
+                                        } } />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.flex}>
+                            <ButtonOption option={'yes'} text={'Confirm'}></ButtonOption>
+                            <ButtonOption
+                                option={'no'}
+                                callback={() => {
+                                    setShowModal(false);
+                                    reset();
+                                } }
+                                text={'Cancel'}
+                            ></ButtonOption>
                         </div>
                     </div>
-                    <div className={styles.formGroup}>
-                        <div className={styles.title}>
-                            <label htmlFor="user"></label>
-                            <select className={styles.select} name="user" id="user" {...register("user")}>
-                                <option value="">Select a user</option>
-                                <option value={ typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne._id : 'No data' }>
-                                    { typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne.fullName : 'No data' } </option>
-                                <option value={ typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo._id : 'No data' }>
-                                    { typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo.fullName : 'No data' } </option>
-                            </select>
-                            {errors.user && <p className={styles.errorP}>This field is required</p>}
-                        </div>
-                    </div>
-                    <div className={styles.modalbuttons}>
-                        <ButtonOption option={'yes'} text={'Confirm'}></ButtonOption>
-                        <ButtonOption
-                            option={'no'}
-                            callback={() => {
-                                setShowModal(false);
-                                reset();
-                            } }
-                            text={'Cancel'}
-                        ></ButtonOption>
-                    </div>
-                    </form>
+                </form>
             </Modal>
                 {/* Add couple modal */}
             <Modal isOpen={isAddingCouple} setIsOpen={setIsAddingCouple} title={'New Couple'}>

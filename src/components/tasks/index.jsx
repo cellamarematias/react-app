@@ -148,7 +148,7 @@ const Task = () => {
                     {/* Modal for deleting task */}
         <Modal isOpen={isModalDelete} setIsOpen={setIsModalDelete} title={'Delete task'}>
                 <h3>Are you sure?</h3>
-            <div className={styles.ButtonContainer}>
+            <div className={styles.modalbuttons}>
             <ButtonOption callback={deleteItem} option={'yes'} text={'Confirm'}></ButtonOption>
             <ButtonOption
                 option={'no'}
@@ -167,10 +167,12 @@ const Task = () => {
                     </div>
                         <input type="textarea" className={styles.title} name="title" id="title" placeholder="Title" {...register("title")} />
                         {errors.title && <p className={styles.errorP}>This field is required</p>}
-                        <BsTrash className={styles.delete} onClick={() => {
-                            setShowModal(false);
-                            setIsModalDelete(true);
-                        } } />
+                        {isAdding ? '' :(
+                            <BsTrash className={styles.delete} onClick={() => {
+                                setShowModal(false);
+                                setIsModalDelete(true);
+                            } } />
+                        )}
                     </div>
                     <div className={styles.formFlex}>
                         <div>

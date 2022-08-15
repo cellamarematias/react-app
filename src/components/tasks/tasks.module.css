@@ -145,7 +145,7 @@ textarea {
 input {
     border: none;
     border-bottom: solid 1px;
-    font-size: large;
+    /* font-size: large; */
     text-align: start;
     margin: 5px;
     padding: 10px 5px 5px 5px;
@@ -169,4 +169,19 @@ select {
 
 .delete:hover {
     cursor: pointer;
+}
+
+.modalbuttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem;
+}
+
+@media screen and (max-width: 600px) {
+    .modalbuttons {
+        flex-direction: column;
+        align-items: center;
+    }
 }

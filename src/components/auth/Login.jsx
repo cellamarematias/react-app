@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './login.module.css';
-import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, getRedirectResult } from "firebase/auth";
 // eslint-disable-next-line no-unused-vars
 import firebaseApp from "helper";
 import { useNavigate } from "react-router-dom";
@@ -64,44 +64,49 @@ const Login = () => {
     }
 
     const loginWithGoogle = () => {
-        signInWithPopup(auth, provider)
+        signInWithRedirect(auth, provider)
         .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            const displayName = user.displayName;
-            const email = user.email;
-            const uid = user.uid;
-
-            sessionStorage.setItem('token', token);
-            sessionStorage.setItem('displayName', displayName);
-            sessionStorage.setItem('email', email);
-            sessionStorage.setItem('uid', user.uid);
-            dispatch(setAuth(displayName, email, token, uid));
             navigate('/tasks');
         })
-        .then(() => {
-            const uid = auth.currentUser.uid;
-            const email = auth.currentUser.email;
-            const displayName = auth.currentUser.displayName;
-            dispatch(getUser(uid, displayName, email));
-        })
-        .then(() => {
-            navigate('/tasks');
-        })
-        .catch((error) => {
-          // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-          // The email of the user's account used.
-            const email = error.customData.email;
-          // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-          // ...
-        });
     }
+
+    getRedirectResult(auth)
+    .then((result) => {
+        navigate('/expenses');
+      // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        const displayName = user.displayName;
+        const email = user.email;
+        const uid = user.uid;
+
+        sessionStorage.setItem('token', token);
+        sessionStorage.setItem('displayName', displayName);
+        sessionStorage.setItem('email', email);
+        sessionStorage.setItem('uid', user.uid);
+        dispatch(setAuth(displayName, email, token, uid));
+    })
+    .then(() => {
+        const uid = auth.currentUser.uid;
+        const email = auth.currentUser.email;
+        const displayName = auth.currentUser.displayName;
+        dispatch(getUser(uid, displayName, email));
+    })
+    .then(() => {
+        navigate('/expenses');
+    })
+    .catch((error) => {
+      // Handle Errors here.
+       // const errorCode = error.code;
+       // const errorMessage = error.message;
+      // The email of the user's account used.
+        //const email = error.customData.email;
+      // The AuthCredential type that was used.
+       // const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
 
 return (
     <div className={styles.loginContainer}>
