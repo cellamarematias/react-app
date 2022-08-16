@@ -11,12 +11,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: .5rem;
+    margin: 0 8px 5px;
+    padding: 5px;
     width: 90vw;
     height: 35px;
     border-radius: 3px;
-    background-color: #ffa43a;
-    color: #fff;
+    background: white;
+    box-shadow: 1px 4px 10px rgb(0 0 0 / 20%);
+    color: #525558;
     font-family: 'Roboto', sans-serif;
     font-size: .8rem;
 }
@@ -24,5 +26,21 @@
 .odd {
     margin: 0;
     padding: 0;
-    color: red;
+    color: #525558;
+    width: 20%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.even {
+    margin: 0;
+    padding: 0;
+    color: #525558;
+    width: 20%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

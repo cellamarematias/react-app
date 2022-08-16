@@ -1,0 +1,12 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.home h3 {
+    margin-top: 15px;
+    font-weight: 200;
+    font-family: 'Inter', sans-serif;
+}

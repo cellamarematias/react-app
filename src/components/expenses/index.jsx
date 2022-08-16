@@ -134,15 +134,15 @@ const Expenses = () => {
         if (totalUserOne > totalUserTwo) {
             // console.log('user one is greater than user two');
             difference = divide - totalUserTwo;
-            userTop = couples.coupleSelected[0]?.userTwo.fullName;
+            userTop = (couples.coupleSelected[0]?.userTwo.fullName)?.split(" ")[0];
             userTopId = couples.coupleSelected[0]?.userTwo._id;
-            userBottom = couples.coupleSelected[0]?.userOne.fullName;
+            userBottom = (couples.coupleSelected[0]?.userOne.fullName)?.split(" ")[0];
         } else {
             // console.log('user two is greater than user one');
             difference = divide - totalUserOne;
-            userTop = couples.coupleSelected[0]?.userOne.fullName;
+            userTop = (couples.coupleSelected[0]?.userOne.fullName)?.split(" ")[0];
             userTopId = couples.coupleSelected[0]?.userOne._id;
-            userBottom = couples.coupleSelected[0]?.userTwo.fullName;
+            userBottom = (couples.coupleSelected[0]?.userTwo.fullName)?.split(" ")[0];
         }
         return totalUserOne;
     }
@@ -257,7 +257,7 @@ const Expenses = () => {
                         <div className={styles.flex}>
                             <input type="number" step="any" className={styles.billInput} name="amount" id="amount" placeholder="$" {...register("amount")} />
                             {errors.amount && <p className={styles.errorP}>This field is required</p>}
-                            {isAdding ? <><span>Balance to $0</span><input type="checkbox" onChange={setBalance} /></> : ''}
+                            {isAdding ? <><span className={styles.balance}>Balance to $0</span><input type="checkbox" onChange={setBalance} /></> : ''}
                         </div>
                         <div className={styles.flex}>
                             <div>
@@ -371,9 +371,9 @@ const Expenses = () => {
             </Modal>
 
             <div className={styles.billsContainer}>
-                <div className={styles.flex}>
+                <div className={styles.dashboard}>
                     <h1 className={styles.title} onClick={() => setIsSelectingDashboard(true)}>Dashboard:</h1>
-                    <h5>{couples.coupleSelected[0]?.name ? couples.coupleSelected[0].name : ""}</h5>
+                    <h4>{couples.coupleSelected[0]?.name ? couples.coupleSelected[0].name : ""}</h4>
                 </div>
                 <div className={styles.user1}>
                     <h4>{userTop}</h4>

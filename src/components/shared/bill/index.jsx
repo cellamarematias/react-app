@@ -6,19 +6,18 @@ import Moment from 'moment';
 const BillsListItem = ( {data, i, func}) => {
     return (
         <div className={styles.listContainer}>
-            <div className={styles.listItem}>
                 {data ? ([data].map((item) => {
                     return (
                         <div key={item._id} className={styles.listItem}>
-                            <span className={styles.odd} >{item.userId.fullName}</span>| {Moment(item.date).format('DD-MM-YYYY')}|
-                            <span className={styles.odd} >${item.amount}</span> |{item.name}|
+                            <span className={styles.odd} >{item.userId.fullName}</span>|
+                            <span className={styles.even} >{Moment(item.date).format('DD-MM')}</span>|
+                            <span className={styles.odd} >${item.amount}</span>|
+                            <span className={styles.even} >{item.name}</span>
                             <BsFillPencilFill onClick={() => func(item)} className={styles.deleteIcon} />
                         </div>
                     )
-
                 } )) : 'Empty List'}
             </div>
-        </div>
     );
 }
 export default BillsListItem;

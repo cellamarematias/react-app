@@ -7,6 +7,18 @@ button {
     margin-top: 0;
 }
 
+input {
+    background: transparent;
+}
+
+textarea {
+    background: transparent;
+}
+
+select {
+    background: transparent;
+}
+
 .overlay {
     display: flex;
     align-items: center;
@@ -36,7 +48,8 @@ button {
     position: relative;
     font-family: 'Inter', sans-serif;
     border-radius: 5px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background: rgb(238,174,210);
+    background: radial-gradient(circle, rgba(238,174,210,1) 0%, rgba(179,182,242,1) 100%);
     /* padding: 20px; */
 }
 
@@ -44,18 +57,18 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* border-bottom: 1px solid #E8E8E8; */
+    border-radius: 5px 5px 0 0;
     width: 100%;
     font-weight: 500;
     font-size: 16px;
     font-family: 'Inter', sans-serif;
-    background-color:#ffa43a;
+    /* background-color:#ffa43a; */
     color: #fff;
 }
 
 .buttonCloseModal {
     margin: 3px;
-    background-color: #ffa43a;
+    background-color: transparent;
     border: none;
     cursor: pointer;
 

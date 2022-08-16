@@ -63,11 +63,11 @@ onAuthStateChanged(auth, (user) => {
 
     return (
         <div className={styles.header}>
-        <h1 className={styles.title}>{pathName}</h1>
+        <h1 className={styles.pathName}>{pathName}</h1>
         <img src="" alt="" />
         <div className={styles.userSection}>
             <BsFillPersonFill className={styles.icon} />
-            <div className={styles.flex}>
+            <div className={styles.flexUser}>
                 <span className={styles.user}>{user.user.displayName ? user.user.displayName : 'Anonnymous'}</span>
                 <button className={styles.logout} onClick={user.user.email ? logout : redirectLogin }>{user.user.email ? 'Logout' : 'Login' }</button>
             </div>

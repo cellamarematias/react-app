@@ -3,10 +3,16 @@ h1 {
     font-weight: 200;
 }
 
+.pathName {
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
 .user {
     font-family: 'Inter', sans-serif;
     font-weight: 100;
     font-style: normal;
+    text-transform: capitalize
 }
 
 .logout {
@@ -19,25 +25,31 @@ h1 {
     font-style: normal;
 }
 
+.logout:hover {
+    color: #ffa43a;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    align-items: flex-end;
+    padding: 7px;
     text-align: start;
     background: #212529;
     color: white;
 }
 
-.flex {
+.flexUser {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 }
 
 .userSection {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .icon {
@@ -48,4 +60,20 @@ h1 {
 span:hover {
     cursor: pointer;
     font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column-reverse;
+        padding: 7px;
+        text-align: right;
+        color: white;
+        background: transparent;
+    }
+    .header h1 {
+        display: none;
+    }
+    .icon {
+        font-size: 2rem;
+    }
 }

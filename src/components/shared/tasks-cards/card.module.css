@@ -36,8 +36,8 @@ p {
     max-width: 220px;
     overflow: hidden;
     border-radius: 4px;
-    background-color: #FFFDFD;
-    color: #212529;
+    background: white;
+    box-shadow: 1px 4px 10px rgb(0 0 0 / 20%);    color: #212529;
     font-family: 'Inter', sans-serif;
 }
 
@@ -51,4 +51,4 @@ p {
 .carButton:hover {
     font-weight: bold;
     cursor: pointer;
-} 
+}

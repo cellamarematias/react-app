@@ -3,6 +3,7 @@ h4 {
     text-transform: uppercase;
     font-weight: 400;
     margin: 0;
+    margin-left: 8px;
 }
 
 .addButton {
@@ -34,9 +35,9 @@ h4 {
     margin: 0.5rem;
     height: 440px;
     width: 220px;
-    background-color: #9CCACC;
+    background-color: #FFFDFD;
     border: 2px;
-    /* border-radius: 2px; */
+    border-radius: 2px;
     padding: 10px;
     margin-bottom: 10px;
     display: inline-table;
@@ -46,9 +47,9 @@ h4 {
     margin: 0.5rem;
     height: 440px;
     width: 220px;
-    background-color: #B8DDDF;
+    background-color: #FFFDFD;
     border: 2px;
-    /* border-radius: 2px; */
+    border-radius: 2px;
     padding: 10px;
     margin-bottom: 10px;
     display: inline-table;
@@ -58,9 +59,9 @@ h4 {
     margin: 0.5rem;
     height: 440px;
     width: 220px;
-    background-color: #CEE6F0;
+    background-color: #FFFDFD;
     border: 2px;
-    /* border-radius: 2px; */
+    border-radius: 2px;
     padding: 10px;
     margin-bottom: 10px;
     display: inline-table;
@@ -70,9 +71,9 @@ h4 {
     margin: 0.5rem;
     height: 440px;
     width: 220px;
-    background-color: #96CDEB;
+    background-color: #FFFDFD;
     border: 2px;
-    /* border-radius: 2px; */
+    border-radius: 2px;
     padding: 10px;
     margin-bottom: 10px;
     display: inline-table;
