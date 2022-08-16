@@ -1,17 +1,21 @@
 
 # Expenses Management App with Reactjs:
 
-Stack: Reactjs, HookForms, Firebase, Nodejs, etc
+## App
+### `Reactjs` `Redux` `React Hook Form` `Firebase`
+
+## Server 
+### `Express` `MongoDB` `Mongoose` `Cors` `Joi`
+
+![11_1](https://user-images.githubusercontent.com/88092713/184943975-6a1a7f05-540e-48b8-b850-c4265c8123bb.jpeg)
+![22_1](https://user-images.githubusercontent.com/88092713/184943986-197b622e-d591-4119-9c57-431f1f44ec66.jpeg)
 
 
+![33_1](https://user-images.githubusercontent.com/88092713/184942068-2c2fc04a-25ac-4fa0-91d5-a28b4025a5a5.jpeg) ![44_1](https://user-images.githubusercontent.com/88092713/184942081-4eaad02c-2bbc-4ce0-9015-7311651e4b10.jpeg)
 
-![WhatsApp Image 2022-08-15 at 9 36 23 PM](https://user-images.githubusercontent.com/88092713/184759348-cb0a9d79-0e68-45e9-a3d8-0c1cfd4ebede.jpeg)
+Enjoy it! It´s free: http://expenses-app-theta.vercel.app/
 
-![WhatsApp Image 2022-08-15 at 9 36 23 PM (1)](https://user-images.githubusercontent.com/88092713/184759344-c7ae88be-9699-4f3f-9db8-76df4005f54e.jpeg)
 
-![WhatsApp Image 2022-08-15 at 9 36 24 PM](https://user-images.githubusercontent.com/88092713/184759336-8cae0385-250f-4ed5-a19b-fb5e085f5ae9.jpeg)
-
-![WhatsApp Image 2022-08-15 at 9 42 08 PM](https://user-images.githubusercontent.com/88092713/184759560-434011b7-48f6-4bb6-86be-6329acc8575d.jpeg)
 
 
 # Getting Started with Create React App
