@@ -34,7 +34,7 @@ import {
 
   export const addExpenses = (data) => {
     console.log(data);
-    const token = sessionStorage.getItem('token');
+    // const token = sessionStorage.getItem('token');
     const url = `${process.env.REACT_APP_API_URL}/expenses/`;
     const options = {
       method: 'POST',
@@ -97,12 +97,11 @@ import {
 
   export const deleteExpenses = ({id}) => {
     console.log(id);
-    const token = sessionStorage.getItem('token');
+    // const token = sessionStorage.getItem('token');
     return (dispatch) => {
       dispatch(deleteexpensesPending());
       return fetch(`${process.env.REACT_APP_API_URL}/expenses/${id}`, {
-        method: 'DELETE',
-        headers: { token }
+        method: 'DELETE'
       })
         .then((response) => response.json())
         .then((response) => {

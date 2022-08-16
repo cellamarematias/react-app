@@ -43,7 +43,7 @@ import {
       case ADD_EXPENSE_SUCCESS:
         return {
           ...state,
-          expensesList: [...state.expensesList, action.payload],
+          expensesList: [action.payload, ...state.expensesList],
           isLoading: false
         };
       case ADD_EXPENSE_ERROR:
