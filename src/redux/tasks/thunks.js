@@ -18,8 +18,8 @@ import {
   export const getTasks = () => {
     return (dispatch) => {
       dispatch(getTasksPending());
-      // const token = sessionStorage.getItem('token');
-      return fetch(`${process.env.REACT_APP_API_URL}/tasks`)
+      const token = sessionStorage.getItem('token');
+      return fetch(`${process.env.REACT_APP_API_URL}/tasks`, { headers: { token } })
         .then((response) => response.json())
         .then((response) => {
           dispatch(getTasksSuccess(response.data));
@@ -41,6 +41,7 @@ import {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        token
       },
       body: JSON.stringify({
         title: data.title,

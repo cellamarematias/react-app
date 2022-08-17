@@ -16,8 +16,8 @@ import {
   export const getCouples = (userOne) => {
     return (dispatch) => {
       dispatch(getCouplesPending());
-      // const token = sessionStorage.getItem('token');
-      return fetch(`${process.env.REACT_APP_API_URL}/couples/${userOne}`)
+      const token = sessionStorage.getItem('token');
+      return fetch(`${process.env.REACT_APP_API_URL}/couples/${userOne}`, { headers: { token } })
         .then((response) => response.json())
         .then((response) => {
           dispatch(getCouplesSuccess(response.data));
@@ -32,8 +32,8 @@ import {
   export const getCoupleById = (id) => {
     return (dispatch) => {
       dispatch(getCouplesIdPending());
-      // const token = sessionStorage.getItem('token');
-      return fetch(`${process.env.REACT_APP_API_URL}/couples/byId/${id}`)
+      const token = sessionStorage.getItem('token');
+      return fetch(`${process.env.REACT_APP_API_URL}/couples/byId/${id}`, { headers: { token } })
         .then((response) => response.json())
         .then((response) => {
           dispatch(getCouplesIdSuccess(response.data));
@@ -50,7 +50,9 @@ import {
     const options = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',      }
+        'Content-Type': 'application/json',
+        token
+      }
     };
     return (dispatch) => {
       return fetch(url, options)
@@ -77,6 +79,7 @@ import {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          token
         },
         body: JSON.stringify({
           "name": couple.name,

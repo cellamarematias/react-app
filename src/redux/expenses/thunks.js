@@ -19,8 +19,8 @@ import {
   export const getExpenses = (coupleId) => {
     return (dispatch) => {
       dispatch(getExpensesPending());
-      // const token = sessionStorage.getItem('token');
-      return fetch(`${process.env.REACT_APP_API_URL}/expenses/byCouple/${coupleId}`)
+      const token = sessionStorage.getItem('token');
+      return fetch(`${process.env.REACT_APP_API_URL}/expenses/byCouple/${coupleId}`, { headers: { token } })
         .then((response) => response.json())
         .then((response) => {
           dispatch(getExpensesSuccess(response.data));
@@ -34,12 +34,13 @@ import {
 
   export const addExpenses = (data) => {
     console.log(data);
-    // const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const url = `${process.env.REACT_APP_API_URL}/expenses/`;
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        token
       },
       body: JSON.stringify({
         coupleId: data.coupleId,
