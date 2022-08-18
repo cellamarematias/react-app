@@ -116,6 +116,7 @@ const Expenses = () => {
     let total = 0;
     let totalUserOne = 0;
     let totalUserTwo = 0;
+    let numb = 0;
     let difference = 0;
     let userTop = '';
     let userBottom = '';
@@ -133,13 +134,15 @@ const Expenses = () => {
         let divide = total / 2;
         if (totalUserOne > totalUserTwo) {
             // console.log('user one is greater than user two');
-            difference = divide - totalUserTwo;
+            numb = divide - totalUserTwo;
+            difference = numb.toFixed(2);
             userTop = (couples.coupleSelected[0]?.userTwo.fullName)?.split(" ")[0];
             userTopId = couples.coupleSelected[0]?.userTwo._id;
             userBottom = (couples.coupleSelected[0]?.userOne.fullName)?.split(" ")[0];
         } else {
             // console.log('user two is greater than user one');
-            difference = divide - totalUserOne;
+            numb = divide - totalUserOne;
+            difference = numb.toFixed(2);
             userTop = (couples.coupleSelected[0]?.userOne.fullName)?.split(" ")[0];
             userTopId = couples.coupleSelected[0]?.userOne._id;
             userBottom = (couples.coupleSelected[0]?.userTwo.fullName)?.split(" ")[0];
