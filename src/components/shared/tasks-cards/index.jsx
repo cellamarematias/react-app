@@ -9,9 +9,9 @@ const Card = ( {data, i, callback}) => {
         return `#${i} ${task.title}`;
     } )) : 'New Task'} </h5>
             <div className={styles.cardContent}>
-                <p>{data ? ([data].map((task) => {
+                {/* <p>{data ? ([data].map((task) => {
         return task.description;
-    } )) : ''}</p>
+    } )) : ''}</p> */}
                 <div>
                     <button className={styles.carButton} onClick={callback}>...</button>
                 </div>
