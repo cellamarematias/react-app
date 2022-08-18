@@ -188,7 +188,7 @@ const Task = () => {
                     </div>
                     {errors.title && <p className={styles.errorP}>This field is required</p>}
                     <div className={styles.formFlex}>
-                        <div>
+                        <div className={styles.descriptionContainer}>
                         <ReactQuill
                             theme="snow"
                             value={editorContent}
