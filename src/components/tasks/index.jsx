@@ -189,9 +189,14 @@ const Task = () => {
                     {errors.title && <p className={styles.errorP}>This field is required</p>}
                     <div className={styles.formFlex}>
                         <div>
+                        <ReactQuill
+                            theme="snow"
+                            value={editorContent}
+                            onChange={onEditorStateChange}
+                            name="description"
+                        />
+                            {errors.description && <p className={styles.errorP}>This field is required</p>}
                         </div>
-                        <textarea className={styles.description}  name="description" id="description" placeholder="Description" {...register("description")}/>
-                        {errors.description && <p className={styles.errorP}>This field is required</p>}
                     </div>
                     <div className={styles.formFlex}>
                         <div className={styles.title}>
