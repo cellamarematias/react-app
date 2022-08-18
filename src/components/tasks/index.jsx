@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component, PropTypes} from "react";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
@@ -12,11 +12,12 @@ import { ButtonOption } from '../shared/buttonOption';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTasks } from '../../redux/tasks/thunks';
-import { BsTrash, BsFillCheckCircleFill } from "react-icons/bs";
+import { BsTrash } from "react-icons/bs";
 import {  } from "react-icons/bs";
 import firebaseApp from "helper";
 import { getAuth } from "firebase/auth";
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const Task = () => {
     const user = useSelector((state) => state.userLogged);
@@ -54,7 +55,7 @@ const Task = () => {
 
     const schema = Joi.object({
         title: Joi.string().required().min(3).trim(),
-        description: Joi.string().required().min(3).trim(),
+        description: Joi.string().min(3).trim(),
         done: Joi.string(),
         date: Joi.date().default(() => {
         return new Date();
@@ -71,6 +72,7 @@ const Task = () => {
         handleSubmit,
         reset,
         setValue,
+        watch,
         formState: { errors }
     } = useForm({
         mode: 'onSubmit',
@@ -108,6 +110,17 @@ const Task = () => {
         setShowModal(false);
     };
 
+        // Richtext
+
+            useEffect(() => {
+                register("description", { required: true, minLength: 11 });
+            }, [register]);
+
+            const onEditorStateChange = (editorState) => {
+                setValue("description", editorState);
+            };
+
+            const editorContent = watch("description");
 
     const editTask = (data) => {
         // format date
@@ -166,7 +179,6 @@ const Task = () => {
                     <div>
                     </div>
                         <input type="textarea" className={styles.title} name="title" id="title" placeholder="Title" {...register("title")} />
-                        {errors.title && <p className={styles.errorP}>This field is required</p>}
                         {isAdding ? '' :(
                             <BsTrash className={styles.delete} onClick={() => {
                                 setShowModal(false);
@@ -174,11 +186,18 @@ const Task = () => {
                             } } />
                         )}
                     </div>
+                    {errors.title && <p className={styles.errorP}>This field is required</p>}
                     <div className={styles.formFlex}>
                         <div>
+                        <ReactQuill
+                            theme="snow"
+                            value={editorContent}
+                            onChange={onEditorStateChange}
+                            name="description"
+                        />
+                            {errors.description && <p className={styles.errorP}>This field is required</p>}
                         </div>
-                        <textarea className={styles.description}  name="description" id="description" placeholder="Description" {...register("description")}/>
-                        {errors.description && <p className={styles.errorP}>This field is required</p>}
+                        {/* <textarea className={styles.description}  name="description" id="description" placeholder="Description" {...register("description")}/> */}
                     </div>
                     <div className={styles.formFlex}>
                         <div className={styles.title}>

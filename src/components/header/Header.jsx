@@ -44,35 +44,35 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-    const path = window.location.pathname;
-    let pathName = '';
-    switch (path) {
-        case '/':
-          pathName = 'Home';
-          break;
-        case '/tasks':
-          pathName = 'Tasks';
-          break;
-        case '/expenses':
-          pathName = 'Expenses';
-          break;
-        default:
-          pathName = '';
-          break;
-      }
+const path = window.location.pathname;
+  let pathName = '';
+  switch (path) {
+      case '/':
+        pathName = 'Home';
+        break;
+      case '/tasks':
+        pathName = 'Tasks';
+        break;
+      case '/expenses':
+        pathName = 'Expenses';
+        break;
+      default:
+        pathName = '';
+        break;
+}
 
-    return (
-        <div className={styles.header}>
-        <h1 className={styles.pathName}>{pathName}</h1>
-        <img src="" alt="" />
-        <div className={styles.userSection}>
-            <BsFillPersonFill className={styles.icon} />
-            <div className={styles.flexUser}>
-                <span className={styles.user}>{user.user.displayName ? user.user.displayName : 'Anonnymous'}</span>
-                <button className={styles.logout} onClick={user.user.email ? logout : redirectLogin }>{user.user.email ? 'Logout' : 'Login' }</button>
-            </div>
+return (
+    <div className={styles.header}>
+    <h1 className={styles.pathName}>{pathName}</h1>
+    <img src="" alt="" />
+    <div className={styles.userSection}>
+        <BsFillPersonFill className={styles.icon} />
+        <div className={styles.flexUser}>
+            <span className={styles.user}>{user.user.displayName ? user.user.displayName : 'Anonnymous'}</span>
+            <button className={styles.logout} onClick={user.user.email ? logout : redirectLogin }>{user.user.email ? 'Logout' : 'Login' }</button>
         </div>
-        </div>
-    )}
+    </div>
+    </div>
+)}
 
 export default Header;
