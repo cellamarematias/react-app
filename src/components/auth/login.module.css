@@ -19,6 +19,15 @@ input {
 .loginForm input{
     margin: 1rem;
     width: 85%;
+    max-width: 300px;
+}
+
+.loginForm input:focus{
+    background: transparent;
+}
+
+:focus {
+    background: transparent;
 }
 
 .loginButton{
