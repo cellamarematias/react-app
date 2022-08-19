@@ -83,6 +83,12 @@ h4 {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
+.tasksCardContainer {
+    max-width: 450px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
 .form {
     display: flex;
     flex-direction: column;

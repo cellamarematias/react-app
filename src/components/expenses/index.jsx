@@ -1,13 +1,13 @@
+/* eslint-disable array-callback-return */
 import BillsListItem from "components/shared/bill";
 import Modal from "components/shared/modal";
 import { ButtonOption } from '../shared/buttonOption';
-import DropdownForm from "components/shared/dropdwon";
 import { BsTrash, BsSearch } from "react-icons/bs";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// eslint-disable-next-line no-unused-vars
 import firebaseApp from "helper";
-import { getAuth } from "firebase/auth";
-import { addBill, deleteExpenses, editBill, editExpenses, getBills, getExpenses } from "redux/expenses/thunks";
+import { deleteExpenses, editExpenses, getExpenses } from "redux/expenses/thunks";
 
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
@@ -25,8 +25,6 @@ const Expenses = () => {
     const user = useSelector((state) => state.userLogged);
     const userSearch = useSelector((state) => state.couples.usersearch);
     const expenses = useSelector((state) => state.expenses);
-    console.log(expenses);
-    console.log(couples.coupleSelected);
     const today = new Date();
     const date = today.setDate(today.getDate());
     const defaultValue = new Date(date).toISOString().split('T')[0] // yyyy-mm-dd
@@ -64,7 +62,6 @@ const Expenses = () => {
     const {
         register: register2,
         handleSubmit: handleSubmit2,
-        setValue: setValue2,
         formState: { errors: errors2 }
     } = useForm({
         mode: 'onSubmit',
@@ -98,12 +95,14 @@ const Expenses = () => {
 
     useEffect(() => {
         reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const [isAddingCouple, setIsAddingCouple ] = useState(false);
     const [isSelectingDashboard, setIsSelectingDashboard] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    // eslint-disable-next-line no-unused-vars
     const [isModalDelete, setIsModalDelete] = useState(false, { id: null });
     const [isEditing, setIsEditing] = useState(false, {
         id: '',
@@ -123,6 +122,7 @@ const Expenses = () => {
     let userTopId = '';
 
     const calulator = () => {
+        // eslint-disable-next-line array-callback-return
         expenses.expensesList.map((item) => {
             total += item.amount;
             if (item.userId._id === couples.coupleSelected[0]?.userOne._id) {
@@ -133,14 +133,12 @@ const Expenses = () => {
         } );
         let divide = total / 2;
         if (totalUserOne > totalUserTwo) {
-            // console.log('user one is greater than user two');
             numb = divide - totalUserTwo;
             difference = numb.toFixed(2);
             userTop = (couples.coupleSelected[0]?.userTwo.fullName)?.split(" ")[0];
             userTopId = couples.coupleSelected[0]?.userTwo._id;
             userBottom = (couples.coupleSelected[0]?.userOne.fullName)?.split(" ")[0];
         } else {
-            // console.log('user two is greater than user one');
             numb = divide - totalUserOne;
             difference = numb.toFixed(2);
             userTop = (couples.coupleSelected[0]?.userOne.fullName)?.split(" ")[0];
@@ -151,7 +149,6 @@ const Expenses = () => {
     }
 
     calulator();
-    console.log('user top', userTop);
     const setBalance = () => {
         setValue('amount', (difference * 2), {shouldValidate: true});
         setValue('description', 'Balance to $0.00');
@@ -160,7 +157,6 @@ const Expenses = () => {
 
     const searchUser = (e) => {
         const value = document.getElementById("email").value;
-        //console.log(value);
         dispatch(findUserByEmail(value));
     }
 
@@ -175,7 +171,6 @@ const Expenses = () => {
     }
 
     const selectDashboard = (data) => {
-        console.log(data);
         dispatch(getCoupleById(data.dashboard));
         dispatch(getExpenses(couples.coupleSelected[0]?._id));
         setIsSelectingDashboard(false);
@@ -203,7 +198,6 @@ const Expenses = () => {
     }
 
     const editExpense = (data) => {
-        console.log(data);
         setIsAdding(false);
         const dateFormated = new Date(data.date).toISOString().substr(0, 10);
         setIsEditing({
@@ -229,7 +223,6 @@ const Expenses = () => {
             amount: data.amount,
             date: data.date,
         }
-        console.log(itemEdited);
         try {
             dispatch(editExpenses(itemEdited));
             setIsEditing(false);

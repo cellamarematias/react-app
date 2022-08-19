@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from './login.module.css';
-import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult } from "firebase/auth";
 // eslint-disable-next-line no-unused-vars
 import firebaseApp from "helper";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from "redux/auth/thunks";
-import { getUser, createUser } from "redux/auth/thunks";
+import { getUser } from "redux/auth/thunks";
 
 const Login = () => {
     const user = useSelector((state) => state.userLogged);
@@ -53,7 +53,6 @@ const Login = () => {
             sessionStorage.setItem('displayName', displayName);
             sessionStorage.setItem('email', email);
             sessionStorage.setItem('uid', user.uid);
-            // console.log(token);
             dispatch(setAuth(displayName, email, token, uid));
             navigate('/tasks');
             // ...

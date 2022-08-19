@@ -1,5 +1,4 @@
 // import styles from './layout.module.css';
-import Task from 'components/tasks';
 import Header from '../header/Header';
 import Nav from '../nav/nav';
 
@@ -18,6 +17,7 @@ const Layout = ({ children }) => {
           pathName = 'Bills';
           break;
         default:
+          // eslint-disable-next-line no-unused-vars
           pathName = '';
           break;
       }

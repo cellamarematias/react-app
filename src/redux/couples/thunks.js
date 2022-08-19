@@ -1,4 +1,3 @@
-import { getUserSuccess } from 'redux/auth/actions';
 import {
   getCouplesPending,
   getCouplesSuccess,

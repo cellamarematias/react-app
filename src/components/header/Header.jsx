@@ -1,11 +1,11 @@
 import styles from './header.module.css';
 import { BsFillPersonFill } from "react-icons/bs";
+// eslint-disable-next-line no-unused-vars
 import firebaseApp from "helper";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth } from "redux/auth/thunks";
-import { useEffect } from 'react';
 
 const Header = () => {
   const user = useSelector((state) => state.userLogged);
@@ -15,27 +15,21 @@ const Header = () => {
 
   const logout = () => {
     signOut(auth).then(() => {
-      console.log("Signed out");
       navigate("/login");
-      // Sign-out successful.
-      // sessionStorage.removeItem("token");
-      // sessionStorage.removeItem("displayName");
+
       dispatch(setAuth(null, null, null, null));
       sessionStorage.clear();
     }).catch((error) => {
-      // An error happened.
       console.log(error);
     });
   }
 
   const redirectLogin = () => {
-    console.log("Redirect to login");
     navigate("/login");
   }
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log("signed in");
     sessionStorage.setItem("displayName", auth.currentUser.displayName);
     // ...
   } else {

@@ -43,6 +43,7 @@ select {
     justify-content: space-between;
     align-content: center;
     align-items: center;
+    width: 100%;
     max-width: 95%;
     background: #fff;
     position: relative;
@@ -84,8 +85,8 @@ form {
     align-items: center;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
     .contenedorModal {
-        width: 100%;
+        width: 50%;
     }
 }

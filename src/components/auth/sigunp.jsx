@@ -18,8 +18,6 @@ const Signup = () => {
         fullName: Joi.string().min(3).required(),
         password: Joi.string().required().min(8)
         });
-    const auth = getAuth();
-
     const {
         register,
         handleSubmit,
@@ -53,7 +51,6 @@ const Signup = () => {
             );
         }).catch((error) => {
             const errorCode = error.code;
-            const errorMessage = error.message;
             if(errorCode === 'auth/email-already-in-use') {
                 alert('Email already in use');
             }

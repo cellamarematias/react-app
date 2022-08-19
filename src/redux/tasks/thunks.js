@@ -12,6 +12,7 @@ import {
     deleteTasksSuccess,
     deleteTasksError
   } from './actions';
+  // eslint-disable-next-line no-unused-vars
   import firebaseApp from 'helper';
   import { getAuth } from "firebase/auth";
 
@@ -34,7 +35,6 @@ import {
   export const addTaskThunks = (data) => {
     const auth = getAuth();
     const user = auth.currentUser;
-    // console.log(user.uid);
     const token = sessionStorage.getItem('token');
     const url = `${process.env.REACT_APP_API_URL}/tasks/`;
     const options = {
@@ -66,8 +66,6 @@ import {
   };
 
   export const editTaskThunks = (taskEdited) => {
-    console.log(taskEdited);
-    const token = sessionStorage.getItem('token');
     const url = `${process.env.REACT_APP_API_URL}/tasks/${taskEdited.id}`;
     const options = {
       method: 'PUT',

@@ -13,9 +13,6 @@ import {
     editexpensesError
   } from './actions';
 
-  import firebaseApp from 'helper';
-  import { getAuth } from "firebase/auth";
-
   export const getExpenses = (coupleId) => {
     return (dispatch) => {
       dispatch(getExpensesPending());
@@ -33,7 +30,6 @@ import {
   };
 
   export const addExpenses = (data) => {
-    console.log(data);
     const token = sessionStorage.getItem('token');
     const url = `${process.env.REACT_APP_API_URL}/expenses/`;
     const options = {
@@ -66,8 +62,6 @@ import {
   };
 
   export const editExpenses = (editedExpense) => {
-    console.log(editedExpense);
-    const token = sessionStorage.getItem('token');
     const url = `${process.env.REACT_APP_API_URL}/expenses/${editedExpense.id}`;
     const options = {
       method: 'PUT',
@@ -97,8 +91,6 @@ import {
   };
 
   export const deleteExpenses = ({id}) => {
-    console.log(id);
-    // const token = sessionStorage.getItem('token');
     return (dispatch) => {
       dispatch(deleteexpensesPending());
       return fetch(`${process.env.REACT_APP_API_URL}/expenses/${id}`, {

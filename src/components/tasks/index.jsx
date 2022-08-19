@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from "react";
+/* eslint-disable array-callback-return */
+import React from "react";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
@@ -14,8 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTasks } from '../../redux/tasks/thunks';
 import { BsTrash } from "react-icons/bs";
 import {  } from "react-icons/bs";
+// eslint-disable-next-line no-unused-vars
 import firebaseApp from "helper";
-import { getAuth } from "firebase/auth";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -44,11 +45,6 @@ const Task = () => {
 
     filterData();
 
-    // Hook form
-    const onSubmit = data => console.log(data);
-    // tasks.map((task) => {
-    //     console.log(task);
-    // } );
     const today = new Date();
     const date = today.setDate(today.getDate() - 1);
     const defaultValue = new Date(date).toISOString().split('T')[0] // yyyy-mm-dd
@@ -81,6 +77,7 @@ const Task = () => {
 
     useEffect(() => {
         reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -89,6 +86,7 @@ const Task = () => {
         } catch (error) {
         console.error(error);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const show = () => {
@@ -97,16 +95,9 @@ const Task = () => {
 
       // ADD TASK
     const addTask = (data) => {
-        console.log(data);
         setShowModal(false);
         dispatch(addTaskThunks(data));
-        // setIsAdding(false);
         reset();
-        // setShowModalMessage({
-        //   showModalMessage: true,
-        //   title: 'Message',
-        //   message: 'Task created'
-        // });
         setShowModal(false);
     };
 
@@ -134,7 +125,6 @@ const Task = () => {
     };
 
     const editedTask =  (data) => {
-        console.log(data);
         const editedTask = {
             id: isEditing.id,
             title: data.title,
@@ -142,7 +132,6 @@ const Task = () => {
             date: data.date,
             done: data.done
         };
-        console.log(editedTask);
         dispatch(editTaskThunks(editedTask));
         setShowModal(false);
         reset();
@@ -150,7 +139,6 @@ const Task = () => {
 
     const deleteItem = () => {
         let id = isEditing.id;
-        console.log(id);
         dispatch(deleteTaskThunks(id));
         setIsModalDelete(!setIsModalDelete);
         reset();
@@ -188,7 +176,7 @@ const Task = () => {
                     </div>
                     {errors.title && <p className={styles.errorP}>This field is required</p>}
                     <div className={styles.formFlex}>
-                        <div>
+                        <div className={styles.tasksCardContainer}>
                         <ReactQuill
                             theme="snow"
                             value={editorContent}

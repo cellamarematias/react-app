@@ -4,8 +4,6 @@ import styles from './nav.module.css';
 
 const Nav = () => {
     const user = useSelector((state) => state.userLogged);
-    console.log(user.user.authenticated);
-
     return (
         <div className={styles.nav}>
             {user.user.authenticated ? (

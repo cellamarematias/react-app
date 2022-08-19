@@ -3,9 +3,6 @@ import {
     registerError,
     registerSuccess,
     registerPending,
-    editUserPending,
-    editUserSuccess,
-    editUserError,
   } from './actions';
   // eslint-disable-next-line no-unused-vars
   import firebaseApp from 'helper';
@@ -18,7 +15,6 @@ import {
 
   export const createUser = (userUid, fullName, email) => {
     const token = sessionStorage.getItem('token');
-    console.log(userUid, fullName, email);
     const url = `${process.env.REACT_APP_API_URL}/users/`;
     const options = {
       method: 'POST',

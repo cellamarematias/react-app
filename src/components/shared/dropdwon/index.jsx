@@ -12,7 +12,6 @@ const DropdownForm = ({
     required,
     error
     }) => {
-        console.log(options);
     return (
         <div className={styles.dropdownContainer} style={dropStyle}>
         <label className={styles.labelDropdown}>{label}</label>
