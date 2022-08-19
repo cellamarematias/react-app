@@ -1,5 +1,7 @@
 h4 {
-    color: cornflowerblue;
+    color: black;
+    font-weight: bold;
+    /* color: cornflowerblue; */
 }
 
 .title {
@@ -81,7 +83,9 @@ h4 {
     font-family: 'Roboto', sans-serif;
     padding: 1rem;
     border-radius: 5px;
-    color: cornflowerblue;
+    color: black;
+    font-weight: bold;
+    /* color: cornflowerblue; */
 }
 
 .user2 {
@@ -99,7 +103,9 @@ h4 {
     font-family: 'Roboto', sans-serif;
     padding: 1rem;
     border-radius: 5px;
-    color: cornflowerblue;
+    color: black;
+    font-weight: bold;
+    /* color: cornflowerblue; */
 }
 
 .circle {
@@ -175,6 +181,12 @@ h4 {
     font-weight: 400;
     font-family: 'Roboto', sans-serif;
     text-transform: capitalize;
+}
+
+.dateExpenses {
+    font-family: 'Inter', sans-serif;
+    border: none;
+    color: #fff;
 }
 
 .selectIcon {

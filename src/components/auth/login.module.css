@@ -8,18 +8,20 @@ input {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    color: white;
+
 }
 .loginForm{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
 }
 
 .loginForm input{
     margin: 1rem;
     width: 85%;
     max-width: 300px;
+    color: white;
 }
 
 .loginForm input:focus{
@@ -31,6 +33,7 @@ input {
 }
 
 .loginButton{
+    width: 100px;
     margin: 1rem;
     background-color: #04AA6D;
     color: white;
@@ -39,11 +42,9 @@ input {
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    width: 20%;
 }
 
 .errorLogin {
-    width: 20%;
     color: red;
 }
 
@@ -51,3 +52,9 @@ input {
     font-family: 'Inter', sans-serif;
     cursor: pointer;
 }
+
+/* @media screen and (max-width: 600px) {
+    .loginButton{
+        width: 50%;
+    }
+} */

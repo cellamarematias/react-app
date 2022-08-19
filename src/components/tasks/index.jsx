@@ -188,14 +188,12 @@ const Task = () => {
                     </div>
                     <div className={styles.formFlex}>
                         <div className={styles.title}>
-                            <input type="date" name="date" id="date" {...register("date")} defaultValue={defaultValue}/>
+                            <input className={styles.dateTasks} type="date" name="date" id="date" {...register("date")} defaultValue={defaultValue}/>
                         </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.title}>
-                            <label htmlFor="done">State</label>
-                            <select name="done" id="done" {...register("done")}>
-                                <option value="">---</option>
+                            <select className={styles.tasksSelect} name="done" id="done" {...register("done")}>
                                 <option value="pending">Pending</option>
                                 <option value="inProgress">In Progress</option>
                                 <option value="inReview">In Review</option>

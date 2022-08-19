@@ -263,7 +263,7 @@ const Expenses = () => {
                         </div>
                         <div className={styles.flex}>
                             <div className={styles.title}>
-                                <input type="date" name="date" id="date" {...register("date")} defaultValue={defaultValue}/>
+                                <input className={styles.dateExpenses} type="date" name="date" id="date" {...register("date")} defaultValue={defaultValue}/>
                             </div>
                         </div>
                         <div className={styles.flex}>
