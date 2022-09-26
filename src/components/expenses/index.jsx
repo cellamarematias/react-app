@@ -26,6 +26,7 @@ const Expenses = () => {
     const user = useSelector((state) => state.userLogged);
     const userSearch = useSelector((state) => state.couples.usersearch);
     const expenses = useSelector((state) => state.expenses);
+    console.log(expenses.isLoading)
     const today = new Date();
     const date = today.setDate(today.getDate());
     const defaultValue = new Date(date).toISOString().split('T')[0] // yyyy-mm-dd
@@ -247,7 +248,11 @@ const Expenses = () => {
     }
 
     return (
-        expenses.length > 0 ? (
+        expenses.isLoading ? (
+            <div className={styles.loading}>
+                <img src={loading} alt="loading..." />
+            </div>
+        ) : (
             <div>
                 <Modal isOpen={showModal} setIsOpen={setShowModal} title={isAdding ? 'New Bill' : 'Edit Bill'}>
                     <form className={styles.form} onSubmit={handleSubmit(isAdding ? addBillForm : edit)}>
@@ -405,12 +410,7 @@ const Expenses = () => {
                     </div>
                 </div>
             </div>
-        ) : (
-            <div className={styles.loading}>
-                <img src={loading} alt="loading..." />
-            </div>
         )
-
     );
 }
 export default Expenses;
