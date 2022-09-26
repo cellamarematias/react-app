@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import firebaseApp from "helper";
 import { deleteExpenses, editExpenses, getExpenses } from "redux/expenses/thunks";
+import loading from './loading.gif';
 
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
@@ -25,6 +26,7 @@ const Expenses = () => {
     const user = useSelector((state) => state.userLogged);
     const userSearch = useSelector((state) => state.couples.usersearch);
     const expenses = useSelector((state) => state.expenses);
+    console.log(expenses.isLoading)
     const today = new Date();
     const date = today.setDate(today.getDate());
     const defaultValue = new Date(date).toISOString().split('T')[0] // yyyy-mm-dd
@@ -33,7 +35,7 @@ const Expenses = () => {
         description: Joi.string().required().min(3).trim(),
         amount: Joi.number().required().min(1),
         date: Joi.date().default(() => {
-        return new Date();
+            return new Date();
         }),
         user: Joi.string().required().min(3).trim(),
     });
@@ -79,9 +81,9 @@ const Expenses = () => {
 
     useEffect(() => {
         try {
-        dispatch(getCouples(user.user.uid));
+            dispatch(getCouples(user.user.uid));
         } catch (error) {
-        console.error(error);
+            console.error(error);
         }
     }, [dispatch, user.user.uid]);
 
@@ -91,14 +93,14 @@ const Expenses = () => {
         } catch (error) {
             console.error(error);
         }
-    } , [couples.coupleSelected, dispatch]);
+    }, [couples.coupleSelected, dispatch]);
 
     useEffect(() => {
         reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const [isAddingCouple, setIsAddingCouple ] = useState(false);
+    const [isAddingCouple, setIsAddingCouple] = useState(false);
     const [isSelectingDashboard, setIsSelectingDashboard] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -130,7 +132,7 @@ const Expenses = () => {
             } else {
                 totalUserTwo += item.amount;
             }
-        } );
+        });
         let divide = total / 2;
         if (totalUserOne > totalUserTwo) {
             numb = divide - totalUserTwo;
@@ -150,9 +152,9 @@ const Expenses = () => {
 
     calulator();
     const setBalance = () => {
-        setValue('amount', (difference * 2), {shouldValidate: true});
+        setValue('amount', (difference * 2), { shouldValidate: true });
         setValue('description', 'Balance to $0.00');
-        setValue('user', userTopId, {shouldValidate: true});
+        setValue('user', userTopId, { shouldValidate: true });
     }
 
     const searchUser = (e) => {
@@ -163,8 +165,8 @@ const Expenses = () => {
     const addCouple = (data) => {
         const newCouple = {
             name: data.coupleName,
-            userOne : user.user.uid,
-            userTwo : userSearch._id,
+            userOne: user.user.uid,
+            userTwo: userSearch._id,
         }
         dispatch(addCoupleThunks(newCouple));
         setIsAddingCouple(false);
@@ -178,7 +180,7 @@ const Expenses = () => {
 
     const show = () => {
         setShowModal(true);
-        }
+    }
 
     const addBillForm = (data) => {
         const newExpense = {
@@ -246,163 +248,169 @@ const Expenses = () => {
     }
 
     return (
-        <div>
-            <Modal isOpen={showModal} setIsOpen={setShowModal} title={isAdding ? 'New Bill' : 'Edit Bill'}>
-                <form  className={styles.form} onSubmit={handleSubmit(isAdding ? addBillForm : edit)}>
-                    <div className={styles.formFlex}>
-                        <div className={styles.flex}>
-                            <input type="number" step="any" className={styles.billInput} name="amount" id="amount" placeholder="$" {...register("amount")} />
-                            {errors.amount && <p className={styles.errorP}>This field is required</p>}
-                            {isAdding ? <><span className={styles.balance}>Balance to $0</span><input type="checkbox" onChange={setBalance} /></> : ''}
-                        </div>
-                        <div className={styles.flex}>
-                            <div>
+        expenses.isLoading ? (
+            <div className={styles.loading}>
+                <img src={loading} alt="loading..." />
+            </div>
+        ) : (
+            <div>
+                <Modal isOpen={showModal} setIsOpen={setShowModal} title={isAdding ? 'New Bill' : 'Edit Bill'}>
+                    <form className={styles.form} onSubmit={handleSubmit(isAdding ? addBillForm : edit)}>
+                        <div className={styles.formFlex}>
+                            <div className={styles.flex}>
+                                <input type="number" step="any" className={styles.billInput} name="amount" id="amount" placeholder="$" {...register("amount")} />
+                                {errors.amount && <p className={styles.errorP}>This field is required</p>}
+                                {isAdding ? <><span className={styles.balance}>Balance to $0</span><input type="checkbox" onChange={setBalance} /></> : ''}
                             </div>
-                            <textarea className={styles.textAreaExpenses} name="description" id="description" placeholder="Description" {...register("description")}/>
-                            {errors.description && <p className={styles.errorP}>This field is required</p>}
-                        </div>
-                        <div className={styles.flex}>
-                            <div className={styles.title}>
-                                <input className={styles.dateExpenses} type="date" name="date" id="date" {...register("date")} defaultValue={defaultValue}/>
+                            <div className={styles.flex}>
+                                <div>
+                                </div>
+                                <textarea className={styles.textAreaExpenses} name="description" id="description" placeholder="Description" {...register("description")} />
+                                {errors.description && <p className={styles.errorP}>This field is required</p>}
                             </div>
-                        </div>
-                        <div className={styles.flex}>
-                            <div className={styles.selectIcon}>
+                            <div className={styles.flex}>
                                 <div className={styles.title}>
-                                    <select className={styles.select} name="user" id="user" {...register("user")}>
-                                        <option value="">Select a user</option>
-                                        <option value={ typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne._id : 'No data' }>
-                                            { typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne.fullName : 'No data' } </option>
-                                        <option value={ typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo._id : 'No data' }>
-                                            { typeof(couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo.fullName : 'No data' } </option>
-                                    </select>
-                                    {errors.user && <p className={styles.errorP}>This field is required</p>}
-                                    {isAdding ? '' :
-                                        <BsTrash className={styles.delete} onClick={() => {
-                                        setShowModal(false);
-                                        deleteExpense();
-                                        setIsModalDelete(true);
-                                        } } />
-                                    }
+                                    <input className={styles.dateExpenses} type="date" name="date" id="date" {...register("date")} defaultValue={defaultValue} />
                                 </div>
                             </div>
+                            <div className={styles.flex}>
+                                <div className={styles.selectIcon}>
+                                    <div className={styles.title}>
+                                        <select className={styles.select} name="user" id="user" {...register("user")}>
+                                            <option value="">Select a user</option>
+                                            <option value={typeof (couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne._id : 'No data'}>
+                                                {typeof (couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne.fullName : 'No data'} </option>
+                                            <option value={typeof (couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo._id : 'No data'}>
+                                                {typeof (couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo.fullName : 'No data'} </option>
+                                        </select>
+                                        {errors.user && <p className={styles.errorP}>This field is required</p>}
+                                        {isAdding ? '' :
+                                            <BsTrash className={styles.delete} onClick={() => {
+                                                setShowModal(false);
+                                                deleteExpense();
+                                                setIsModalDelete(true);
+                                            }} />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles.flex}>
+                                <ButtonOption option={'yes'} text={'Confirm'}></ButtonOption>
+                                <ButtonOption
+                                    option={'no'}
+                                    callback={() => {
+                                        setShowModal(false);
+                                        reset();
+                                    }}
+                                    text={'Cancel'}
+                                ></ButtonOption>
+                            </div>
                         </div>
-                        <div className={styles.flex}>
-                            <ButtonOption option={'yes'} text={'Confirm'}></ButtonOption>
-                            <ButtonOption
-                                option={'no'}
-                                callback={() => {
-                                    setShowModal(false);
-                                    reset();
-                                } }
-                                text={'Cancel'}
-                            ></ButtonOption>
-                        </div>
-                    </div>
-                </form>
-            </Modal>
+                    </form>
+                </Modal>
                 {/* Add couple modal */}
-            <Modal isOpen={isAddingCouple} setIsOpen={setIsAddingCouple} title={'New Couple'}>
-                <form  className={styles.form} onSubmit={handleSubmit2(addCouple)}>
-                    <div className={styles.formFlex}>
-                        <div className={styles.flex}>
-                            <input type="text" className={styles.billInput} name="coupleName" id="coupleName" placeholder="Name" {...register2("coupleName")} />
-                            {errors2.coupleName && <p className={styles.errorP}>This field is required</p>}
+                <Modal isOpen={isAddingCouple} setIsOpen={setIsAddingCouple} title={'New Couple'}>
+                    <form className={styles.form} onSubmit={handleSubmit2(addCouple)}>
+                        <div className={styles.formFlex}>
+                            <div className={styles.flex}>
+                                <input type="text" className={styles.billInput} name="coupleName" id="coupleName" placeholder="Name" {...register2("coupleName")} />
+                                {errors2.coupleName && <p className={styles.errorP}>This field is required</p>}
+                            </div>
+                            <div className={styles.flex}>
+                                <input type="email" className={styles.billInput} name="email" id="email" placeholder="Second user email" {...register2("email")} />
+                                {errors2.email && <p className={styles.errorP}>This field is required</p>}
+                            </div>
+                            <div className={styles.flex}>
+                                <BsSearch className={styles.delete} onClick={() => {
+                                    searchUser(false);
+                                }} />
+                            </div>
+                            <p className={styles.search}>{userSearch.fullName ? userSearch.fullName : userSearch.message}</p>
+                            <div className={styles.modalbuttons}>
+                                {userSearch.error ? '' : <ButtonOption option={'yes'} text={'Confirm'} ></ButtonOption>}
+                                <ButtonOption
+                                    option={'no'}
+                                    callback={() => {
+                                        setIsAddingCouple(false);
+                                        reset();
+                                    }}
+                                    text={'Cancel'}
+                                ></ButtonOption>
+                            </div>
                         </div>
-                        <div className={styles.flex}>
-                            <input type="email" className={styles.billInput} name="email" id="email" placeholder="Second user email" {...register2("email")} />
-                            {errors2.email && <p className={styles.errorP}>This field is required</p>}
+                    </form>
+                </Modal>
+                {/* select dashboard modal */}
+                <Modal isOpen={isSelectingDashboard} setIsOpen={setIsSelectingDashboard} title={'My list'}>
+                    <form className={styles.form} onSubmit={handleSubmit3(selectDashboard)}>
+                        <button className={styles.addCoupleButton} onClick={() => { setIsAddingCouple(true); setIsSelectingDashboard(false); }} >Add</button>
+                        <div className={styles.formFlex}>
+                            <div>
+                                <label htmlFor="dashboard">Select dashboard:</label>
+                                <select name="dashboard" id="dashboard" {...register3("dashboard")}>
+                                    {couples.couplesList.map((dashboard) => {
+                                        if (dashboard.userOne._id === user.user.uid || dashboard.userTwo._id === user.user.uid) {
+                                            return (
+                                                <option key={dashboard._id} value={dashboard._id}>{dashboard.name}</option>
+                                            );
+                                        }
+                                    })}
+                                </select>
+                                {errors3.dashboard && <p className={styles.errorP}>This field is required</p>}
+                            </div>
+                            <div className={styles.modalbuttons}>
+                                <ButtonOption option={'yes'} text={'Confirm'}></ButtonOption>
+                                <ButtonOption
+                                    option={'no'}
+                                    callback={() => {
+                                        setIsSelectingDashboard(false);
+                                        reset();
+                                    }}
+                                    text={'Cancel'}
+                                ></ButtonOption>
+                            </div>
                         </div>
-                        <div className={styles.flex}>
-                        <BsSearch className={styles.delete} onClick={() => {
-                                searchUser(false);
-                            } } />
-                        </div>
-                        <p className={styles.search}>{userSearch.fullName? userSearch.fullName : userSearch.message }</p>
-                        <div className={styles.modalbuttons}>
-                            { userSearch.error ? '' : <ButtonOption option={'yes'} text={'Confirm'} ></ButtonOption>}
-                            <ButtonOption
-                                option={'no'}
-                                callback={() => {
-                                    setIsAddingCouple(false);
-                                    reset();
-                                } }
-                                text={'Cancel'}
-                            ></ButtonOption>
-                        </div>
-                    </div>
-                </form>
-            </Modal>
-            {/* select dashboard modal */}
-            <Modal isOpen={isSelectingDashboard} setIsOpen={setIsSelectingDashboard} title={'My list'}>
-                <form  className={styles.form} onSubmit={handleSubmit3(selectDashboard)}>
-                <button className={styles.addCoupleButton} onClick={() => { setIsAddingCouple(true); setIsSelectingDashboard(false);}} >Add</button>
-                    <div className={styles.formFlex}>
-                        <div>
-                            <label htmlFor="dashboard">Select dashboard:</label>
-                            <select name="dashboard" id="dashboard" {...register3("dashboard")}>
-                                {couples.couplesList.map((dashboard) => {
-                                    if (dashboard.userOne._id === user.user.uid || dashboard.userTwo._id === user.user.uid) {
-                                    return (
-                                        <option key={dashboard._id} value={dashboard._id}>{dashboard.name}</option>
-                                    );
-                                    }
-                                } )}
-                            </select>
-                            {errors3.dashboard && <p className={styles.errorP}>This field is required</p>}
-                        </div>
-                        <div className={styles.modalbuttons}>
-                            <ButtonOption option={'yes'} text={'Confirm'}></ButtonOption>
-                            <ButtonOption
-                                option={'no'}
-                                callback={() => {
-                                    setIsSelectingDashboard(false);
-                                    reset();
-                                } }
-                                text={'Cancel'}
-                            ></ButtonOption>
-                        </div>
-                    </div>
-                </form>
-            </Modal>
+                    </form>
+                </Modal>
 
-            <div className={styles.billsContainer}>
-                <div className={styles.dashboard}>
-                    <h1 className={styles.title} onClick={() => setIsSelectingDashboard(true)}>Dashboard:</h1>
-                    <h4>{couples.coupleSelected[0]?.name ? couples.coupleSelected[0].name : ""}</h4>
-                </div>
-                <div className={styles.user1}>
-                    <h4>{userTop}</h4>
-                </div>
-                <div className={styles.circle}>
-                    <h4>owes</h4>
-                    <h3>${difference}</h3>
-                    <h4>to</h4>
-                </div>
-                <div className={styles.user2}>
-                    <h4>{userBottom}</h4>
-                </div>
-                <div >
-                    <button className={styles.addButton} onClick={() => {
-                        show();
-                        setIsAdding(true);
-                    }}>+</button>
-                </div>
-                <div className={styles.list}>
-                    <h4>List</h4>
-                    {expenses.expensesList.map((expense) => {
-                        return (
-                            <BillsListItem key={expense._id} data={expense} func={(item) => {
-                                editExpense(item);
-                                setIsAdding(false);
-                                show();
-                            }} />
-                        );
-                    }
-                    )}
+                <div className={styles.billsContainer}>
+                    <div className={styles.dashboard}>
+                        <h1 className={styles.title} onClick={() => setIsSelectingDashboard(true)}>Dashboard:</h1>
+                        <h4>{couples.coupleSelected[0]?.name ? couples.coupleSelected[0].name : ""}</h4>
+                    </div>
+                    <div className={styles.user1}>
+                        <h4>{userTop}</h4>
+                    </div>
+                    <div className={styles.circle}>
+                        <h4>owes</h4>
+                        <h3>${difference}</h3>
+                        <h4>to</h4>
+                    </div>
+                    <div className={styles.user2}>
+                        <h4>{userBottom}</h4>
+                    </div>
+                    <div >
+                        <button className={styles.addButton} onClick={() => {
+                            show();
+                            setIsAdding(true);
+                        }}>+</button>
+                    </div>
+                    <div className={styles.list}>
+                        <h4>List</h4>
+                        {expenses.expensesList.map((expense) => {
+                            return (
+                                <BillsListItem key={expense._id} data={expense} func={(item) => {
+                                    editExpense(item);
+                                    setIsAdding(false);
+                                    show();
+                                }} />
+                            );
+                        }
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        )
     );
-    }
+}
 export default Expenses;

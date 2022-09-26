@@ -33,7 +33,7 @@ import {
         return {
           ...state,
           error: action.payload,
-          isLoading: false
+          isLoading: true
         };
       case ADD_EXPENSE_PENDING:
         return {
