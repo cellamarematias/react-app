@@ -4,7 +4,7 @@ import styles from './card.module.css';
 const Card = ( {data, i, callback}) => {
 
     return (
-        <div className={styles.card}>
+        <div className={styles.card} onClick={callback}>
             <h5>{data ? ([data].map((task) => {
         return `#${i} ${task.title}`;
     } )) : 'New Task'} </h5>
@@ -13,7 +13,7 @@ const Card = ( {data, i, callback}) => {
         return task.description;
     } )) : ''}</p> */}
                 <div>
-                    <button className={styles.carButton} onClick={callback}>...</button>
+                    <button className={styles.carButton}>...</button>
                 </div>
             </div>
         </div>

@@ -9,8 +9,8 @@ const Nav = () => {
             {user.user.authenticated ? (
                 <ul className={styles.navList}>
                     {/* <li><a href="/">Home</a></li> */}
-                    <li><a href="/tasks">Tasks</a></li>
-                    <li><a href="/expenses">Expenses</a></li>
+                    <li><a href="/tasks">Tareas</a></li>
+                    <li><a href="/expenses">Gastos</a></li>
                 </ul>
             ) : ( '' )}
         </div>

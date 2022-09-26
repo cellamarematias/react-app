@@ -32,7 +32,7 @@ import {
         return {
           ...state,
           error: action.payload,
-          isLoading: false
+          isLoading: true
         };
       case ADD_TASK_PENDING:
         return {

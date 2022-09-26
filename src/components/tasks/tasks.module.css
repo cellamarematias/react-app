@@ -201,6 +201,17 @@ select {
     margin: 0.5rem;
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading img {
+    height: 200px;
+}
+
+
 @media screen and (max-width: 600px) {
     .modalbuttons {
         flex-direction: column;

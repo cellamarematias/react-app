@@ -254,19 +254,19 @@ const Expenses = () => {
             </div>
         ) : (
             <div>
-                <Modal isOpen={showModal} setIsOpen={setShowModal} title={isAdding ? 'New Bill' : 'Edit Bill'}>
+                <Modal isOpen={showModal} setIsOpen={setShowModal} title={isAdding ? 'Nuevo gasto' : 'Editar gasto'}>
                     <form className={styles.form} onSubmit={handleSubmit(isAdding ? addBillForm : edit)}>
                         <div className={styles.formFlex}>
                             <div className={styles.flex}>
                                 <input type="number" step="any" className={styles.billInput} name="amount" id="amount" placeholder="$" {...register("amount")} />
-                                {errors.amount && <p className={styles.errorP}>This field is required</p>}
-                                {isAdding ? <><span className={styles.balance}>Balance to $0</span><input type="checkbox" onChange={setBalance} /></> : ''}
+                                {errors.amount && <p className={styles.errorP}>Este campo es requerido</p>}
+                                {isAdding ? <><span className={styles.balance}>Poner en $0</span><input type="checkbox" onChange={setBalance} /></> : ''}
                             </div>
                             <div className={styles.flex}>
                                 <div>
                                 </div>
-                                <textarea className={styles.textAreaExpenses} name="description" id="description" placeholder="Description" {...register("description")} />
-                                {errors.description && <p className={styles.errorP}>This field is required</p>}
+                                <textarea className={styles.textAreaExpenses} name="description" id="description" placeholder="Descripción" {...register("description")} />
+                                {errors.description && <p className={styles.errorP}>Este campo es requerido</p>}
                             </div>
                             <div className={styles.flex}>
                                 <div className={styles.title}>
@@ -277,13 +277,13 @@ const Expenses = () => {
                                 <div className={styles.selectIcon}>
                                     <div className={styles.title}>
                                         <select className={styles.select} name="user" id="user" {...register("user")}>
-                                            <option value="">Select a user</option>
+                                            <option value="">Elegir usuario</option>
                                             <option value={typeof (couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne._id : 'No data'}>
                                                 {typeof (couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userOne.fullName : 'No data'} </option>
                                             <option value={typeof (couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo._id : 'No data'}>
                                                 {typeof (couples.coupleSelected[0]) !== 'undefined' ? couples.coupleSelected[0].userTwo.fullName : 'No data'} </option>
                                         </select>
-                                        {errors.user && <p className={styles.errorP}>This field is required</p>}
+                                        {errors.user && <p className={styles.errorP}>Este campo es requerido</p>}
                                         {isAdding ? '' :
                                             <BsTrash className={styles.delete} onClick={() => {
                                                 setShowModal(false);
@@ -295,30 +295,30 @@ const Expenses = () => {
                                 </div>
                             </div>
                             <div className={styles.flex}>
-                                <ButtonOption option={'yes'} text={'Confirm'}></ButtonOption>
+                                <ButtonOption option={'yes'} text={'Confirmar'}></ButtonOption>
                                 <ButtonOption
                                     option={'no'}
                                     callback={() => {
                                         setShowModal(false);
                                         reset();
                                     }}
-                                    text={'Cancel'}
+                                    text={'Cancelar'}
                                 ></ButtonOption>
                             </div>
                         </div>
                     </form>
                 </Modal>
                 {/* Add couple modal */}
-                <Modal isOpen={isAddingCouple} setIsOpen={setIsAddingCouple} title={'New Couple'}>
+                <Modal isOpen={isAddingCouple} setIsOpen={setIsAddingCouple} title={'Nueva pareja'}>
                     <form className={styles.form} onSubmit={handleSubmit2(addCouple)}>
                         <div className={styles.formFlex}>
                             <div className={styles.flex}>
-                                <input type="text" className={styles.billInput} name="coupleName" id="coupleName" placeholder="Name" {...register2("coupleName")} />
-                                {errors2.coupleName && <p className={styles.errorP}>This field is required</p>}
+                                <input type="text" className={styles.billInput} name="coupleName" id="coupleName" placeholder="Nombre" {...register2("coupleName")} />
+                                {errors2.coupleName && <p className={styles.errorP}>Este campo es requerido</p>}
                             </div>
                             <div className={styles.flex}>
-                                <input type="email" className={styles.billInput} name="email" id="email" placeholder="Second user email" {...register2("email")} />
-                                {errors2.email && <p className={styles.errorP}>This field is required</p>}
+                                <input type="email" className={styles.billInput} name="email" id="email" placeholder="Email segundo usuario" {...register2("email")} />
+                                {errors2.email && <p className={styles.errorP}>Este campo es requerido</p>}
                             </div>
                             <div className={styles.flex}>
                                 <BsSearch className={styles.delete} onClick={() => {
@@ -327,21 +327,21 @@ const Expenses = () => {
                             </div>
                             <p className={styles.search}>{userSearch.fullName ? userSearch.fullName : userSearch.message}</p>
                             <div className={styles.modalbuttons}>
-                                {userSearch.error ? '' : <ButtonOption option={'yes'} text={'Confirm'} ></ButtonOption>}
+                                {userSearch.error ? '' : <ButtonOption option={'yes'} text={'Confirmar'} ></ButtonOption>}
                                 <ButtonOption
                                     option={'no'}
                                     callback={() => {
                                         setIsAddingCouple(false);
                                         reset();
                                     }}
-                                    text={'Cancel'}
+                                    text={'Cancelar'}
                                 ></ButtonOption>
                             </div>
                         </div>
                     </form>
                 </Modal>
                 {/* select dashboard modal */}
-                <Modal isOpen={isSelectingDashboard} setIsOpen={setIsSelectingDashboard} title={'My list'}>
+                <Modal isOpen={isSelectingDashboard} setIsOpen={setIsSelectingDashboard} title={'Mi lista'}>
                     <form className={styles.form} onSubmit={handleSubmit3(selectDashboard)}>
                         <button className={styles.addCoupleButton} onClick={() => { setIsAddingCouple(true); setIsSelectingDashboard(false); }} >Add</button>
                         <div className={styles.formFlex}>
@@ -356,17 +356,17 @@ const Expenses = () => {
                                         }
                                     })}
                                 </select>
-                                {errors3.dashboard && <p className={styles.errorP}>This field is required</p>}
+                                {errors3.dashboard && <p className={styles.errorP}>Este campo es requerido</p>}
                             </div>
                             <div className={styles.modalbuttons}>
-                                <ButtonOption option={'yes'} text={'Confirm'}></ButtonOption>
+                                <ButtonOption option={'yes'} text={'Confirmar'}></ButtonOption>
                                 <ButtonOption
                                     option={'no'}
                                     callback={() => {
                                         setIsSelectingDashboard(false);
                                         reset();
                                     }}
-                                    text={'Cancel'}
+                                    text={'Cancelar'}
                                 ></ButtonOption>
                             </div>
                         </div>
@@ -382,9 +382,9 @@ const Expenses = () => {
                         <h4>{userTop}</h4>
                     </div>
                     <div className={styles.circle}>
-                        <h4>owes</h4>
+                        <h4>Debe</h4>
                         <h3>${difference}</h3>
-                        <h4>to</h4>
+                        <h4>a</h4>
                     </div>
                     <div className={styles.user2}>
                         <h4>{userBottom}</h4>

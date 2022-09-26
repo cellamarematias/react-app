@@ -1,5 +1,4 @@
 import styles from './header.module.css';
-import { BsFillPersonFill } from "react-icons/bs";
 // eslint-disable-next-line no-unused-vars
 import firebaseApp from "helper";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
@@ -45,10 +44,10 @@ const path = window.location.pathname;
         pathName = 'Home';
         break;
       case '/tasks':
-        pathName = 'Tasks';
+        pathName = 'Tareas';
         break;
       case '/expenses':
-        pathName = 'Expenses';
+        pathName = 'Gastos';
         break;
       default:
         pathName = '';
@@ -60,10 +59,9 @@ return (
     <h1 className={styles.pathName}>{pathName}</h1>
     <img src="" alt="" />
     <div className={styles.userSection}>
-        <BsFillPersonFill className={styles.icon} />
         <div className={styles.flexUser}>
             <span className={styles.user}>{user.user.displayName ? user.user.displayName : 'Anonnymous'}</span>
-            <button className={styles.logout} onClick={user.user.email ? logout : redirectLogin }>{user.user.email ? 'Logout' : 'Login' }</button>
+            <button className={styles.logout} onClick={user.user.email ? logout : redirectLogin }>{user.user.email ? 'Cerrar sesión' : 'Login' }</button>
         </div>
     </div>
     </div>
