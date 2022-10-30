@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
-import loading from '../expenses/loading.gif';
+import loading from '../expenses/loader.gif';
 
 import { addTaskThunks, editTaskThunks, deleteTaskThunks } from "../../redux/tasks/thunks";
 

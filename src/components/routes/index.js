@@ -17,6 +17,8 @@ import {
       <BrowserRouter>
         <Layout>
           <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/tasks"
             element={
               <PrivateRoute>
@@ -29,8 +31,6 @@ import {
                 <Expenses />
               </PrivateRoute>
             }/>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
           </Routes>
         </Layout>
       </BrowserRouter>

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import firebaseApp from "helper";
 import { deleteExpenses, editExpenses, getExpenses } from "redux/expenses/thunks";
-import loading from './loading.gif';
+import loading from './loader.gif';
 
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
